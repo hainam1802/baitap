@@ -26,12 +26,10 @@
                             <div class="filter-section">
                                 <!--<div class="filter-menu"><span class="filter-title">Tìm khách sạn</span></div>-->
                                 <div class="input-group">
-                                    <input type="text" class="form-control ng-pristine ng-untouched ng-valid"
+                                    <input type="text" name="title" class="form-control ng-pristine ng-untouched ng-valid"
                                            placeholder="Nhập tên khách sạn"
                                     />
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-default" ><i class="fas fa-search"></i></button>
-                                    </div>
+
                                 </div>
                             </div>
                             <!--   sao-->
@@ -205,6 +203,9 @@
                             <button class="btn btn-action btn-block search-button btn-big" >
                                 <b> Tìm <span class="visible-xs-inline-block">kiếm</span></b>
                             </button>
+                            <button class="btn  btn-default btn-block reset-button btn-big" >
+                                <b> Reset</b>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -312,20 +313,21 @@
                             </div>
                             @endforeach
                             <!-- end ngRepeat: item in hotels track by $index -->
+                        @else
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                                    <div class="place-empty " >
+                                        Rất tiếc, không tìm thấy khách sạn nào trong này.<br />
+                                        Vui lòng thử lại
+                                    </div>
 
+                                    <div id="page-holder"></div>
+                                    {{--                            <div class="more-product col-xs-12 text-center v-margin-top-15" id="page-pager">--}}
+                                    {{--                                <a href="{{\Request::fullUrl()}}" class="btn btn-default btn-lg btn-load-more mt-3" id="paginate">Xem thêm</a>--}}
+                                    {{--                            </div>--}}
+                                </div>
                         @endif
 
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 vremoveSpacing">
-                            <div class="place-empty ng-hide" ng-show="!loading &amp;&amp; hotels.length == 0 &amp;&amp; isFilter">
-                                Rất tiếc, không tìm thấy khách sạn nào trong này.<br />
-                                Vui lòng thử lại hoặc liên hệ HOTLINE <a class="bind-list-hotel-hotline" href="tel:19002045"><span class="display-text">1900 2045</span></a> để được hỗ trợ.
-                            </div>
 
-                            <div id="page-holder"></div>
-                            <div class="more-product col-xs-12 text-center v-margin-top-15" id="page-pager">
-                                <a href="{{\Request::fullUrl()}}" class="btn btn-default btn-lg btn-load-more mt-3" id="paginate">Xem thêm</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -421,10 +423,16 @@
             if (selectedLocales.length > 0) {
                 searchParams.set('locales', selectedLocales.join(','));
             }
+            searchParams.set('q',  $('input[name="title"]').val());
             // Thay thế URL hiện tại với URL mới chứa các lựa chọn
             var newUrl = window.location.pathname + '?' + searchParams.toString();
             window.location.replace(newUrl);
+            // Tại đây, bạn có thể gửi yêu cầu AJAX hoặc xử lý dữ liệu không cần gửi yêu cầu
+        });
+        $('.reset-button').on('click', function () {
 
+            var newUrl = window.location.pathname ;
+            window.location.replace(newUrl);
             // Tại đây, bạn có thể gửi yêu cầu AJAX hoặc xử lý dữ liệu không cần gửi yêu cầu
         });
     });

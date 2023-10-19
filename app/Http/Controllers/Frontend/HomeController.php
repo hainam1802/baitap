@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Locale;
 use Illuminate\Http\Request;
 use App\Models\Group;
 use App\Models\Group_Item;
@@ -25,12 +26,9 @@ use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
-    public function getCart(Request $request, $id){
-        $data = Item::with('group')->with('locale')->with('category')
-            ->where('id',$id)
-            ->where('status',1)
-            ->first();
-        return view('frontend.pages.cart',compact('data'));
+    public function index(Request $request){
+        $locations = Locale::where('status',1)->get();
+        return view('frontend.pages.index',compact('locations'));
 
     }
     public function getCheckout(Request $request, $id){

@@ -7,9 +7,7 @@
                 <i class="fas fa-plus-circle icon-md"></i>
                 {{__('Thêm mới')}}
             </a>
-            <button type="button" class="btn btn-info font-weight-bolder" id="btn-add">
-                Thêm nhanh
-              </button>
+
         </div>
       
     </ol>

@@ -1,17 +1,6 @@
 {{-- Extends layout --}}
 @extends('admin._layouts.master')
-@section('action_area')
-    <ol class="d-flex justify-content-end pr-3">
-        <div class="btn-group mt-3">
-            <a href="{{route('admin.order.create')}}" type="button" class="btn btn-success font-weight-bolder mr-3">
-                <i class="fas fa-plus-circle icon-md"></i>
-                {{__('Thêm mới')}}
-            </a>
 
-        </div>
-      
-    </ol>
-@endsection
 {{-- Content --}}
 @section('content')
     <div class="card card-custom" id="kt_page_sticky_card">
@@ -37,17 +26,17 @@
                             <input type="text" class="form-control datatable-input" id="id" placeholder="{{__('ID')}}">
                         </div>
                     </div>
-                    {{--name--}}
-                    <div class="form-group col-12 col-sm-6 col-lg-3">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i
-                                        class="fa fa-calendar-check-o"></i></span>
-                            </div>
-                            <input type="text" class="form-control datatable-input" id="name"
-                                   placeholder="{{__('Tên địa điểm')}}">
-                        </div>
-                    </div>
+{{--                    --}}{{--name--}}
+{{--                    <div class="form-group col-12 col-sm-6 col-lg-3">--}}
+{{--                        <div class="input-group">--}}
+{{--                            <div class="input-group-prepend">--}}
+{{--                                <span class="input-group-text"><i--}}
+{{--                                        class="fa fa-calendar-check-o"></i></span>--}}
+{{--                            </div>--}}
+{{--                            <input type="text" class="form-control datatable-input" id="name"--}}
+{{--                                   placeholder="{{__('Tên địa điểm')}}">--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
                 </div>
                 <div class="row">
@@ -146,9 +135,27 @@
                     columns: [
                         {data: 'id', title: 'ID'},
                         {
-                            data: 'title', title: '{{__('Trạng thái')}}',
+                            data: 'product', title: '{{__('Phòng')}}',
                             render: function (data, type, row) {
-                                return row.title
+                                return row.product
+                            }
+                        },
+                        {
+                            data: 'price', title: '{{__('Giá trị')}}',
+                            render: function (data, type, row) {
+                                return row.price
+                            }
+                        },
+                        {
+                            data: 'user', title: '{{__('Người mua')}}',
+                            render: function (data, type, row) {
+                                return row.user
+                            }
+                        },
+                        {
+                            data: 'status', title: '{{__('Trạng thái')}}',
+                            render: function (data, type, row) {
+                                return row.status
                             }
                         },
 

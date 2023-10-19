@@ -25,10 +25,10 @@ Route::group(['namespace' => 'Frontend'], function () {
     Route::post('/post-order', 'OrderController@postOrderNow');
     Route::get('/', 'HomeController@index')->name('index');
 
-    Route::get('/',function(){
-        return view('frontend.pages.index');
-
-    })->name('index');
+//    Route::get('/',function(){
+//        return view('frontend.pages.index');
+//
+//    })->name('index');
 
     Route::get('/order',function(){
         return view('frontend.pages.order');

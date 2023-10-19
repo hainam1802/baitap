@@ -15,47 +15,13 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="//www.ivivu.com">Khách sạn <span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="/">Trang chủ</a></li>
                     <li><a href="//www.ivivu.com/du-lich">Tours</a></li>
                     <li><a href="//www.ivivu.com/ve-may-bay">Vé máy bay</a></li>
                     <li><a href="//www.ivivu.com/ve-vui-choi" >Vé vui chơi</a></li>
-                    <li class="dropdown full-width">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-ellipsis-h"></i></a>
-                        <ul class="dropdown-menu" role="menu" *dropdownMenu>
-                            <li>
-                                <a href="javascript:void(0)" onclick="Common.login()" data-keyboard="true" id="searchlogingg">Tài khoản đặt phòng</a>
-                            </li>
-                            <li><a href="//www.ivivu.com/blog" target="_blank">Cẩm nang du lịch</a></li>
 
-
-                            <li><a href="//www.ivivu.com/gioi-thieu">Giới thiệu</a></li>
-                            <li><a href="//www.ivivu.com/hoi-dap">Hỏi đáp</a></li>
-                            <li><a href="//www.ivivu.com/ho-tro">Hỗ trợ</a></li>
-                        </ul>
-                    </li>
                 </ul>
             </div>
-
-            <div class="navbar-collapse pull-left visible-xs">
-                <ul class="nav navbar-nav" id="dropdown-nav-mobile" role="menu">
-                    <li class="active"><a href="//www.ivivu.com">Khách sạn <span class="sr-only">(current)</span></a></li>
-                    <li><a href="//www.ivivu.com/du-lich">Tours</a></li>
-                    <li><a href="//www.ivivu.com/ve-may-bay">Vé máy bay</a></li>
-
-                    <li><a href="//www.ivivu.com/ve-vui-choi">Vé vui chơi</a></li>
-                    <li><a href="//www.ivivu.com/blog" target="_blank">Cẩm nang du lịch</a></li>
-                    <li>
-                        <a href="javascript:void(0)" onclick="Common.login()" data-keyboard="true" id="searchlogingg">Tài khoản đặt phòng</a>
-                    </li>
-
-
-                    <li><a href="//www.ivivu.com/gioi-thieu">Giới thiệu</a></li>
-                    <li><a href="//www.ivivu.com/hoi-dap">Hỏi đáp</a></li>
-                    <li><a href="//www.ivivu.com/ho-tro">Hỗ trợ</a></li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">

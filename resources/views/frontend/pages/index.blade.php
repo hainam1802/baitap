@@ -20,104 +20,28 @@
                                                 <div class="input-icon" style="position:absolute;" >
                                                     <i class="fas fa-map-marker-alt"></i>
                                                 </div>
-                                                <select id="searchText" style="padding-left:50px" type="text" class="form-control v_field__input search-input typeahead" placeholder="Bạn muốn đi đâu?">
+                                                <select id="searchSelect" name="locale[]" style="padding-left:50px" type="text" class="form-control v_field__input search-input typeahead" placeholder="Bạn muốn đi đâu?">
                                                     <option value="0">Bạn muốn đi đâu?</option>
-                                                    <option value="33">66</option>
-                                                    <option value="33">ádasd</option>
-                                                    <option value="33">545456</option>
-                                                    <option value="33">66</option>
+                                                    @foreach($locations as $location)
+                                                     <option value="{{$location->id}}">{{$location->title}}</option>
+                                                    @endforeach
+
                                                 </select>
                                             </div>
                                         </div>
-
-                                        <div class="col-xs-12 col-sm-6 dates t-datepicker">
-                                            <div class="col-xs-6 no-padding check-in  t-check-in" id="check-in-date-search">
-                                                <div class=" col-xs-12 v_field">
-                                                    <i class="vicon vicon-check-in icon"></i>
-
-                                                    <div class="v_field__content ">
-                                                        <p class="v_field__text">
-                                                            <span class="t-day-check-in"> 25</span><span class='t-month-check-in'> tháng 11</span>
-                                                        </p>
-                                                        <p class="v_field__description" style="padding-left: 5px">Thứ bảy</p>
-                                                    </div>
+                                        <div class="col-xs-12 col-sm-10 v-margin-bottom-15 typeahead-container search-fullframe">
+                                            <div class="col-xs-12 no-padding v_field ">
+                                                <div class="input-icon" style="position:absolute;" >
+                                                    <i class="fas fa-search-location"></i>
                                                 </div>
-                                            </div>
-                                            <div class="col-xs-6 no-padding check-out  t-check-out">
-                                                <div class=" col-xs-12 v_field">
-                                                    <div class="nights ">
-                                                        2 <i class="vicon vicon-free-night-stay icon"></i>
-                                                    </div>
-                                                    <i class="vicon vicon-check-out icon" ></i>
+                                                <input id="searchText" style="padding-left:50px" type="text" class="form-control v_field__input search-input typeahead" placeholder="Nhập địa điểm bạn muốn đi?">
 
-                                                    <div class="v_field__content">
-                                                        <p class="v_field__text" >
-                                                            <span class="t-day-check-in"> 27</span><span class='t-month-check-in'> tháng 11</span>
-                                                        </p>
-                                                        <p class="v_field__description" style="padding-left: 5px">Thứ hai</p>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-sm-4 rooms" id="search-form-rooms">
-                                            <div class="col-xs-12 v_field">
-                                                <div class="v_field__icon-container">
-                                                    <i class="vicon vicon-travelers icon"></i>
-                                                </div>
-                                                <div class="v_field__content" >
-                                                    <p class="v_field__text">2 người lớn, 0 trẻ em</p>
-                                                    <p class="v_field__description">1 Phòng</p>
-                                                </div>
-                                                <div class="v_field__content" >
-                                                    <p class="v_field__text">3 người lớn, 2 trẻ em</p>
-                                                    <p class="v_field__description">6 Phòng</p>
-                                                </div>
-                                            </div>
 
-                                            <div class="col-xs-12 room-popover room-popover-header" data-display="false" style="display: none">
-                                                <div class="col-xs-12 room-popover__inner">
-                                                    <div class="col-xs-12 room-popover__item">
-                                                        <div class="col-xs-6 room-popover__quantity no-padding">
-                                                            <div class="quantity">3</div>
-                                                            Phòng
-                                                        </div>
-                                                        <div class="col-xs-6 no-padding text-right">
-                                                            <div class="btn-group">
-                                                                <button type="button" class="btn btn-default btn-sm" ng-click="PlusOrMinusObject('room','-',1,RoomConfig.length)"><i class="fa fa-minus"></i></button>
-                                                                <button type="button" class="btn btn-default btn-sm" ng-click="PlusOrMinusObject('room','+',1,RoomConfig.length)"><i class="fa fa-plus"></i></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 room-popover__item">
-                                                        <div class="col-xs-6 room-popover__quantity no-padding">
-                                                            <div class="quantity">3</div>
-                                                            Người lớn
-                                                        </div>
-                                                        <div class="col-xs-6 no-padding text-right">
-                                                            <div class="btn-group">
-                                                                <button type="button" class="btn btn-default btn-sm" ><i class="fa fa-minus"></i></button>
-                                                                <button type="button" class="btn btn-default btn-sm" ><i class="fa fa-plus"></i></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 room-popover__item">
-                                                        <div class="col-xs-6 room-popover__quantity no-padding">
-                                                            <div class="quantity">3</div>
-                                                            Trẻ em
-                                                        </div>
-                                                        <div class="col-xs-6 no-padding text-right">
-                                                            <div class="btn-group">
-                                                                <button type="button" class="btn btn-default btn-sm" ng-click="PlusOrMinusObject('child','-',0,ChildConfig.length)"><i class="fa fa-minus"></i></button>
-                                                                <button type="button" class="btn btn-default btn-sm" ng-click="PlusOrMinusObject('child','+',0,ChildConfig.length)"><i class="fa fa-plus"></i></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
 
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="col-xs-12 col-sm-2 ">
-                                            <button onclick="SearchHotelHehe()" class="btn btn-action btn-block  search-form-button btn-big">
+                                            <button class="btn btn-action btn-block  search-button btn-big" style="height: 60px">
                                                 <b> Tìm <span class="visible-xs-inline-block">kiếm</span></b>
                                             </button>
                                         </div>
@@ -708,4 +632,31 @@
 
 
 </div>
+
+@endsection
+@section('scripts')
+    <script>
+
+        $(document).ready(function () {
+            $('.search-button').on('click', function () {
+                var selectedLocales = [];
+                $('.search-form.home-page #searchSelect option:selected').each(function () {
+                    selectedLocales.push($(this).val());
+                });
+                // Cập nhật URL với các lựa chọn được chọn
+                var searchParams = new URLSearchParams();
+
+                if (selectedLocales.length > 0) {
+                    searchParams.set('locales', selectedLocales.join(','));
+                }
+                searchParams.set('q', $('.search-form.home-page #searchText').val());
+
+                // Thay thế URL hiện tại với URL mới chứa các lựa chọn
+                var newUrl =  '/item-list?' + searchParams.toString();
+                window.location.replace(newUrl);
+
+                // Tại đây, bạn có thể gửi yêu cầu AJAX hoặc xử lý dữ liệu không cần gửi yêu cầu
+            });
+        });
+    </script>
 @endsection

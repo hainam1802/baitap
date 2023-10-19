@@ -60,10 +60,12 @@ class ProductController extends Controller
     public function category(Request $request)
     {
         $search = $request->get('q');
-		$items_prd = Item::with('category')->with('locale')->with('group')->where(function ($query) use ($search){
-			$query->where('title', 'LIKE', '%' . $search . '%');
-		})
-		->where('status',1);
+		$items_prd = Item::with('category')->with('locale')->with('group')->where('status',1);
+        if($search){
+            $items_prd = $items_prd->where(function ($query) use ($search){
+                $query->where('title', 'LIKE', '%' . $search . '%');
+            });
+        }
         if($request->filled('categories')){
             $categories = $request->input('categories');
             $categoryIds = explode(',', $categories);
@@ -108,7 +110,7 @@ class ProductController extends Controller
                 default :
             }
         }
-        $items_prd = $items_prd->orderBy('id','desc')->paginate(8);
+        $items_prd = $items_prd->orderBy('id','desc')->get();
         if ($request->ajax()) {
             if($items_prd && count($items_prd) > 0){
                 return view('frontend.pages.func.load_item_prd')->with('items_prd',$items_prd);

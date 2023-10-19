@@ -116,11 +116,21 @@ class ItemController extends Controller
                     return date('d/m/Y H:i:s', strtotime($data->created_at));
                 })
                 ->editColumn('price', function($data) {
-                    return number_format($data->real_received_price). ' đ';
+                    return number_format($data->price). ' đ';
                 })
-                ->editColumn('type', function($data) {
-                    return config('order.type.'.$data->type);
+                ->editColumn('status', function($data) {
+                    $result = "";
+                    if($data->status_confirm == 1){
+                        $result .= '<span class="text-success">Thành công</span>';
+                    }
+                    else if($data->status_confirm == 2){
+                        $result .= '<span class="text-warning">Chờ xử lý</span>';
+                    }else if($data->status_confirm == 0){
+                        $result .= '<span class="text-danger">Hủy bỏ</span>';
+                    }
+                    return $result;
                 })
+
                 ->addColumn('user', function($row) {
                     $result = "";
                     if($row->author->username != ""){
@@ -129,7 +139,7 @@ class ItemController extends Controller
                     return $result;
                 })
                 ->addColumn('product', function($row) {
-                    $result = $row->order_detail;
+                    $result = $row->item_ref->title;
                     return $result;
                 })
                 ->addColumn('action', function($row) {
