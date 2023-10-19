@@ -4,60 +4,21 @@
 <div class="list-content clearfix" >
     <div class="content-hotel">
         <!--   tiêu đề-->
-        <div class="container">
+        <div class="container" style="margin-top: 30px">
             <div class="hotelListHeadLine">
                 <h1 class="hotelName vspacingbottom15 hidden-xs">
-                    Khách sạn Đà Lạt
+                    Danh sách & bộ lọc
                     <span id="list-nameregion" style="display: none;">Đà Lạt</span>
                     <div class="visible-xs visible-sm">
                         <div class="vspacingbottom5"></div>
                     </div>
                 </h1>
             </div>
+
             <div class="row">
                 <!--   trái-->
                 <div class="col-xs-12 col-md-3 sidebar-left">
-                    <!--   hỗ trợ-->
-                    <div class="cs hidden-xs">
-                        <div class="cs__header">
-                            <div class="img-wrapper">
-                                <img class="img" src="//cdn1.ivivu.com/iVivu/2018/12/05/10/undefined-2.png" alt="Avatar" />
-                            </div>
-                        </div>
-                        <div class="cs__text">
-                            <h5 class="cs__text__title">Cần hỗ trợ?</h5>
-                            <div class="contact">
-                                <div class="region">
-                                    HCM
-                                </div>
-                                <div class="phone">
-                                    <a href="tel:1900 1870">
-                                        1900 1870
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="contact">
-                                <div class="region">
-                                    HN
-                                </div>
-                                <div class="phone">
-                                    <a href="tel:1900 2045">
-                                        1900 2045
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="contact">
-                                <div class="region">
-                                    CT
-                                </div>
-                                <div class="phone">
-                                    <a href="tel:1900 2087">
-                                        1900 2087
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <!--   bộ lọc-->
                     <div class="hidden-xs">
                         <div class="filter-list">
@@ -69,7 +30,7 @@
                                            placeholder="Nhập tên khách sạn"
                                     />
                                     <div class="input-group-btn">
-                                        <button class="btn btn-default" ng-click="applyWatchKeword()"><i class="fas fa-search"></i></button>
+                                        <button class="btn btn-default" ><i class="fas fa-search"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +57,7 @@
                                                     <i class="fa fa-star star ng-scope" ></i>
                                                     <!-- end ngIf: item.ID>=20 -->
                                                     <!-- ngIf: item.ID>=10 -->
-                                                    <i ng-if="item.ID>=10" class="fa fa-star star ng-scope"></i>
+                                                    <i  class="fa fa-star star ng-scope"></i>
                                                     <!-- end ngIf: item.ID>=10 -->
                                                 </span>
                                             </label>
@@ -125,55 +86,123 @@
                                             </label>
                                         </div>
                                     </div>
+                                    <!-- ngRepeat: item in dataStar track by $index -->
+                                    <div class="filter-item ng-scope">
+                                        <div class="md-checkbox">
+                                            <input id="3_star" type="checkbox" class="ng-untouched ng-valid ng-dirty" />
+                                            <label for="3_star">
+                                                <span class="stars" style="color: #fdbf65;">
+                                                    <!-- ngIf: item.ID>=50 -->
+                                                    <i class="fa fa-star star ng-scope" ></i>
+                                                    <!-- end ngIf: item.ID>=50 -->
+                                                    <!-- ngIf: item.ID>=40 -->
+                                                    <i class="fa fa-star star ng-scope"></i>
+                                                    <!-- end ngIf: item.ID>=40 -->
+                                                    <!-- ngIf: item.ID>=40 -->
+                                                    <i class="fa fa-star star ng-scope"></i>
+                                                    <!-- end ngIf: item.ID>=40 -->
 
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- ngRepeat: item in dataStar track by $index -->
+                                    <div class="filter-item ng-scope">
+                                        <div class="md-checkbox">
+                                            <input id="2_star" type="checkbox" class="ng-untouched ng-valid ng-dirty" />
+                                            <label for="2_star">
+                                                <span class="stars" style="color: #fdbf65;">
+                                                    <!-- ngIf: item.ID>=50 -->
+                                                    <i class="fa fa-star star ng-scope" ></i>
+                                                    <!-- end ngIf: item.ID>=50 -->
+                                                    <!-- ngIf: item.ID>=40 -->
+                                                    <i class="fa fa-star star ng-scope"></i>
+                                                    <!-- end ngIf: item.ID>=40 -->
+
+
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- ngRepeat: item in dataStar track by $index -->
+                                    <div class="filter-item ng-scope">
+                                        <div class="md-checkbox">
+                                            <input id="1_star" type="checkbox" class="ng-untouched ng-valid ng-dirty" />
+                                            <label for="1_star">
+                                                <span class="stars" style="color: #fdbf65;">
+                                                    <!-- ngIf: item.ID>=50 -->
+                                                    <i class="fa fa-star star ng-scope" ></i>
+                                                    <!-- end ngIf: item.ID>=50 -->
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!--   khu vực-->
+                            @php
+                                 $locations = \App\Models\Locale::where('status',1)->get();
+                            @endphp
                             <div class="filter-section" >
                                 <div class="filter-menu"><span class="filter-title">Khu vực</span></div>
-                                <div class="filter-items" ng-init="limitItemLocation=6;  maxLenLocation = 5">
+                                <div class="filter-items" >
+                                    @foreach($locations as $key_location => $location)
                                     <!-- ngRepeat: item in dataLocation  | limitTo:limitItemLocation track by $index -->
                                     <div  class="filter-item location-filter ng-scope">
                                         <div class="md-checkbox">
-                                            <input id="Bảo Lộc" type="checkbox" class="ng-pristine ng-untouched ng-valid" />
+                                            <input id="location_{{$location->id}}" name="locale[]" value="{{$location->id}}" type="checkbox" class="ng-pristine ng-untouched ng-valid" />
                                             <label class="area-content">
-                                                <label for="Bảo Lộc" class="ng-binding">
-                                                    <span class="icon-wrapper"></span> Bảo Lộc
-                                                    <!-- ngIf: item.TotalHotels>0 -->
-                                                    <span class="ng-binding ng-scope">(2)</span>
-                                                    <!-- end ngIf: item.TotalHotels>0 -->
+                                                <label for="location_{{$location->id}}" class="ng-binding">
+                                                    <span class="icon-wrapper"></span> {{$location->title}}
+
                                                 </label>
                                                 <!-- ngIf: item.ShortDes -->
                                             </label>
                                         </div>
                                     </div>
+                                    @endforeach
                                     <!-- end ngRepeat: item in dataLocation  | limitTo:limitItemLocation track by $index -->
 
                                 </div>
                             </div>
-                            <input type="hidden" ng-init="dataTags=[]" />
+                            <!--   khu vực-->
+                            @php
+                                $categorys = \App\Models\Category::where('status',1)->get();
+                            @endphp
                             <!--   loại hình-->
                             <div class="filter-section" >
                                 <div class="filter-menu"><span class="filter-title">Loại hình nơi ở</span></div>
                                 <div class="filter-items" >
+                                    @foreach($categorys as $key_categorys =>$category)
                                     <!-- ngRepeat: item in dataHotelClass  | limitTo:limitItemHotelClass track by $index -->
                                     <div class="filter-item ng-scope">
                                         <div class="md-checkbox">
-                                            <input id="Khu nghỉ dưỡng (Resort)" type="checkbox" class="ng-pristine ng-untouched ng-valid" />
-                                            <label for="Khu nghỉ dưỡng (Resort)" class="ng-binding"> <span class="icon-wrapper"></span> Khu nghỉ dưỡng (Resort) </label>
+                                            <input id="category_{{$category->id}}" name="category[]" value="{{$category->id}}" type="checkbox" class="ng-pristine ng-untouched ng-valid" />
+                                            <label for="category_{{$category->id}}" class="ng-binding"> <span class="icon-wrapper"></span> {{$category->title}} </label>
                                         </div>
                                     </div>
-
-                                    <!-- end ngRepeat: item in dataHotelClass  | limitTo:limitItemHotelClass track by $index -->
-                                    <div class="filter-show-more">
-                                        <!-- ngIf: limitItemHotelClass<12 -->
-                                        <p class="filter-close ng-scope" ng-click="loadMoreItemFilter('limitItemHotelClass', maxLenHotelClass)" ng-if="limitItemHotelClass<12"><i class="vicon vicon-icon-arrow-down"></i> Xem thêm</p>
-                                        <!-- end ngIf: limitItemHotelClass<12 -->
-                                        <!-- ngIf: limitItemHotelClass==12 && 12>6 -->
-                                    </div>
+                                        @endforeach
                                 </div>
                             </div>
-                            <button class="btn btn-action btn-block search-form-button btn-big" >
+                            @php
+                                $groups = \App\Models\Group::where('status',1)->get();
+                            @endphp
+                            <!--   loại hình-->
+                            <div class="filter-section" >
+                                <div class="filter-menu"><span class="filter-title">Loại phòng</span></div>
+                                <div class="filter-items" >
+                                    @foreach($groups as $key_groups =>$group)
+                                    <!-- ngRepeat: item in dataHotelClass  | limitTo:limitItemHotelClass track by $index -->
+                                    <div class="filter-item ng-scope">
+                                        <div class="md-checkbox">
+                                            <input id="group_{{$group->id}}" name="group[]" value="{{$group->id}}" type="checkbox" class="ng-pristine ng-untouched ng-valid" />
+                                            <label for="group_{{$group->id}}" class="ng-binding"> <span class="icon-wrapper"></span> {{$group->title}} </label>
+                                        </div>
+                                    </div>
+                                        @endforeach
+                                </div>
+                            </div>
+                            <button class="btn btn-action btn-block search-button btn-big" >
                                 <b> Tìm <span class="visible-xs-inline-block">kiếm</span></b>
                             </button>
                         </div>
@@ -184,27 +213,29 @@
                     <div class="row lts-product-load-item">
                         <!-- ngIf: IsLoadInit -->
                         @if (isset($items_prd) && count($items_prd) > 0)
-                        <div style="">
                             <!-- ngRepeat: item in hotels track by $index -->
                             @foreach ($items_prd as $item)
                             <div class="hotel-item__wrapper ng-scope combo">
-                                <a target="_blank" class="hotel-item__a" href="/khach-san-da-lat/mercure-dalat-resort">
+                                <a  class="hotel-item__a " style="width: 100%" href="/item-list/{{isset($item->slug) ? $item->slug : $item->url}}">
                                     <div class="hotel-item">
                                         <!--   ảnh-->
                                         <div class="left">
                                             <div class="img-wrapper">
-                                                <div class="image"  style="background-image: url('//cdn1.ivivu.com/iVivu/2022/06/30/12/hinhdaidien-374x280.webp?o=jpg');"></div>
+                                                <div class="image"
+                                                     style="background-image: url('{{ isset($item->image)?\App\Library\Files::media($item->image) : null }}');">
+
+                                                </div>
                                             </div>
                                         </div>
                                         <!--   thông tin-->
                                         <div class="center">
                                             <div class="header">
                                                 <p class="name limit-length ng-binding">
-                                                    {{$item->title}}
+                                                    {{isset($item->title) ? $item->title : null}}
                                                 </p>
                                                 <p class="name">
                                                     <!-- ngIf: item.Rating != -1 -->
-                                                    <span ng-if="item.Rating != -1" class="stars ng-scope">
+                                                    <span class="stars ng-scope">
                                                         <!-- ngRepeat: star in range(item.Rating/10) track by $index -->
                                                         <span class="ng-scope">
                                                             <i class="fa fa-star star"></i>
@@ -224,36 +255,31 @@
                                                         <!-- end ngRepeat: star in range(item.Rating/10) track by $index -->
                                                         <!-- ngIf: item.Rating % 10 > 0 -->
                                                     </span>
-                                                    <!-- end ngIf: item.Rating != -1 -->
-                                                    <!-- ngIf: item.IsTop -->
-                                                    <i ng-if="item.IsTop" class="fa fa-heart heart ng-scope"></i>
-                                                    <!-- end ngIf: item.IsTop -->
-                                                    <!-- ngIf: item.Point != '0.0' -->
-                                                    <span ng-if="item.Point != '0.0'" onclick="location.href=''" class="review-small ng-scope">
-                                                        <span class="review-score ng-binding">9.7</span>
-                                                        <span class="review-text ng-binding">Tuyệt vời</span>
-                                                        <span class="review-count ng-binding"> | 71 đánh giá</span>
-                                                    </span>
-                                                    <!-- end ngIf: item.Point != '0.0' -->
+
                                                 </p>
-                                                <p class="address limit-length ng-binding"><i class="fa fa-map-marker"></i> 03 Nguyễn Du, Phường 9 - <b>Xem bản đồ</b></p>
+                                                <p class="address limit-length ng-binding">
+                                                    <i class="fa fa-map-marker"></i> {{isset($item->locale) ? $item->locale->title : null}}
+                                                </p>
                                             </div>
 
                                             <div class="highlights">
                                                 <!-- end ngIf: item.StyleTag.length>0 -->
                                                 <!-- ngIf: item.Facilities.length>0 && item.Facilities[0].Name!='' -->
-                                                <div class="hightlight ng-scope" ng-if="item.Facilities.length>0 &amp;&amp; item.Facilities[0].Name!=''">
+                                                <div class="hightlight ng-scope" >
                                                     <div class="pill-container pill-primary">
                                                         <div class="pill-title">
                                                             <i class="fa fa-star"></i>
                                                         </div>
                                                         <!-- ngRepeat: itemFac in item.Facilities | limitTo:2 track by $index -->
                                                         <div class="pill-item ng-binding ng-scope" >
-                                                            Biệt thự nghỉ dưỡng
+                                                            {{isset($item->category) ? $item->category->title : null}}
+                                                        </div>
+                                                        <div class="pill-item ng-binding ng-scope" >
+                                                            -
                                                         </div>
                                                         <!-- end ngRepeat: itemFac in item.Facilities | limitTo:2 track by $index -->
                                                         <div class="pill-item ng-binding ng-scope" >
-                                                            Thiết kế ấn tượng
+                                                            {{isset($item->group) ? $item->group->title : null}}
                                                         </div>
                                                         <!-- end ngRepeat: itemFac in item.Facilities | limitTo:2 track by $index -->
 
@@ -263,24 +289,21 @@
                                             </div>
                                         </div>
                                         <!--  giá-->
-                                        <div class="right">
+                                        <div class="right" >
                                             <div class="pricing">
                                                 <div class="pricing__group">
+                                                    <span class="price old">
+                                                        @if (isset($item->price_old) && (int)$item->price_old > 0)
+                                                            <strike>{{number_format($item->price_old)}} ₫</strike>
+                                                        @endif
+                                                    </span>
+
                                                     <p class="price primary" >
-                                                        <span class="price-num ng-binding">
-                                                            2.461.000 VND
-                                                        </span>
+                                                        <strong>{{number_format($item->price)}} ₫</strong>
                                                     </p>
-                                                    <!-- ngIf: LoadingFinish && UserTypes.isAgent && item.availableNo!=undefined -->
-                                                    <p class="price primary ng-hide">
-                                                        <span class="price-num ng-binding">
-                                                            2.461.000 VND
-                                                        </span>
-                                                    </p>
-                                                    <!-- ngIf: LoadingFinish && (item.IsShowPrice==2 || item.IsShowPrice==0&&!IsShowPrice) &&!(UserTypes.isMember && UserTypes.memberInfo.showPrice==1) && item.priceOta !=undefined -->
-                                                    <p class="price primary ng-hide">
-                                                        <span class="price-num"><i class="vicon vicon-alarm-clock"></i> Hết phòng</span>
-                                                    </p>
+                                                    <button class="btn btn-action btn-block btn-success btn-big " style="margin-top: 8px">
+                                                        <b> Chi tiết</b>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -290,10 +313,8 @@
                             @endforeach
                             <!-- end ngRepeat: item in hotels track by $index -->
 
-                        </div>
                         @endif
 
-                        </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 vremoveSpacing">
                             <div class="place-empty ng-hide" ng-show="!loading &amp;&amp; hotels.length == 0 &amp;&amp; isFilter">
                                 Rất tiếc, không tìm thấy khách sạn nào trong này.<br />
@@ -333,125 +354,6 @@
                     padding: 4px 8px;
                 }
             </style>
-            <!--BEGIN PREDICT GUEST-->
-
-            <!-- Modal from button Lấy giá tốt -->
-
-            <div class="modal fade findDealForCustomerModal" id="findDealForCustomerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                            <h4 class="modal-title" style="padding-left: 15px; text-transform: uppercase;">
-                                ĐẶT PHÒNG ĐOÀN
-                                <i
-                                        class="glyphicon glyphicon-info-sign fixGlyphicon vcolor-primary hidden-sm hidden-md hidden-lg"
-                                        style="font-size: 14px;"
-                                        data-toggle="tooltip"
-                                        data-placement="bottom"
-                                        title=""
-                                        data-original-title="iVIVU.com sẽ tìm kiếm những deal tốt nhất (khách sạn giá tốt nhất và tour giá tốt nhất) và
-                            gửi đến địa chỉ mail của khách hàng dựa vào thông tin mà khách hàng cung cấp."
-                                ></i>
-                            </h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 findDealForCustomerHeading vspacingbottom15">
-                                <p class="hidden-xs">Khi đặt phòng theo đoàn với iVIVU.com, bạn sẽ có được <b>khách sạn phù hợp nhất</b> với <b>giá tốt nhất</b> mà <b>không phải tốn thời gian tìm kiếm</b>.</p>
-                            </div>
-
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 vremoveSpacing">
-                                    <div class="form-group vspacingbottom25">
-                                        <label class="control-label"> <i class="glyphicon glyphicon-home hidden"></i> Yêu cầu </label>
-                                        <div class="findDealForCustomerStyleCheckbox">
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                                    <textarea id="typehotel" name="typehotel" class="form-control" rows="3" style="resize: vertical;" placeholder="Địa điểm, thời gian đặt phòng, số lượng thành viên của đoàn..."></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group vspacingbottom15">
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 vspacingbottom15">
-                                                <div style="position: relative;">
-                                                    <label for="findDealForCustomerPhone" class="control-label"><i class="glyphicon glyphicon glyphicon-earphone hidden"></i> Điện thoại </label>
-
-                                                    <div class="div-phone">
-                                                        <input
-                                                                type="tel"
-                                                                class="form-control"
-                                                                id="findDealForCustomerPhone"
-                                                                name="phone"
-                                                                placeholder="Số điện thoại"
-                                                                onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                                <div class="div-email" style="position: relative;">
-                                                    <label for="findDealForCustomerEmail" class="control-label"> <i class="glyphicon glyphicon-send hidden"></i> Email </label>
-                                                    <i class="vcolor-danger" style="font-size: 28px; position: absolute;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Bắt buộc nhập">*</i>
-                                                    <div>
-                                                        <input type="text" class="form-control" id="findDealForCustomerEmail" name="email" placeholder="Địa chỉ email" maxlength="100" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--if have any error, set class has-error, if not, dont -->
-                                    <div class="alert alert-danger" role="alert" style="display: none;">
-                                        <div class="pre-place" style="display: none;">
-                                            <strong>
-                                                <i class="glyphicon glyphicon-warning-sign"></i>
-                                            </strong>
-                                            Vui lòng nhập địa điểm.
-                                        </div>
-                                        <div class="pre-email">
-                                            <strong>
-                                                <i class="glyphicon glyphicon-warning-sign"></i>
-                                            </strong>
-                                            Chưa nhập địa chỉ email hoặc địa chỉ email chưa đúng
-                                        </div>
-                                        <div class="pre-phone" style="display: none;">
-                                            <strong>
-                                                <i class="glyphicon glyphicon-warning-sign"></i>
-                                            </strong>
-                                            Vui lòng nhập số điện thoại.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 vspacingbottom10">
-                                <div class="findDealForCustomerGuarantee hidden">
-                                    • iVIVU.com cam kết đảm bảo an toàn thông tin của quý khách hàng. <br />
-                                    • Quý khách hàng có thể yêu cầu ngưng dịch vụ tìm kiếm deal tốt nhất bất cứ lúc nào.
-                                </div>
-
-                                <button
-                                        type="button"
-                                        class="btn btn-warning btn-block btn-lg vbackground-warning"
-                                        id="findDealForCustomerButton"
-                                        onclick="ga('send', { 'hitType': 'event', 'eventCategory': 'Đăng ký tìm kiếm deal', 'eventAction': 'Click', 'eventLabel': 'Đăng ký tìm kiếm deal' });"
-                                >
-                                    Đặt phòng đoàn
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--end modal from button lấy giá tốt-->
 
         </div>
     </div>
@@ -490,6 +392,41 @@
     }
     $( document ).ready(function() {
 
+    });
+    $(document).ready(function () {
+        $('.search-button').on('click', function () {
+            var selectedCategories = [];
+            var selectedGroups = [];
+            var selectedLocales = [];
+
+            $('input[name="category[]"]:checked').each(function () {
+                selectedCategories.push($(this).val());
+            });
+            // Lấy các giá trị được chọn từ checkbox Loại phòng
+            $('input[name="group[]"]:checked').each(function () {
+                selectedGroups.push($(this).val());
+            });
+            $('input[name="locale[]"]:checked').each(function () {
+                selectedLocales.push($(this).val());
+            });
+
+            // Cập nhật URL với các lựa chọn được chọn
+            var searchParams = new URLSearchParams();
+            if (selectedCategories.length > 0) {
+                searchParams.set('categories', selectedCategories.join(','));
+            }
+            if (selectedGroups.length > 0) {
+                searchParams.set('groups', selectedGroups.join(','));
+            }
+            if (selectedLocales.length > 0) {
+                searchParams.set('locales', selectedLocales.join(','));
+            }
+            // Thay thế URL hiện tại với URL mới chứa các lựa chọn
+            var newUrl = window.location.pathname + '?' + searchParams.toString();
+            window.location.replace(newUrl);
+
+            // Tại đây, bạn có thể gửi yêu cầu AJAX hoặc xử lý dữ liệu không cần gửi yêu cầu
+        });
     });
 </script>
 @endsection
