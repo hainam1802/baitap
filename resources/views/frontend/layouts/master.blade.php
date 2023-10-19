@@ -70,6 +70,9 @@
     <link rel="stylesheet" href="/assets/frontend/vendor/owlcarousel2/assets/owl.theme.default.min.css">
     <link href="/assets/frontend/css/n-home-page.css" rel='stylesheet'>
     <link href="/assets/frontend/css/n-list.css" rel='stylesheet'>
+    <link href="/assets/frontend/css/n-detail.css" rel='stylesheet'>
+    <link href="/assets/frontend/css/layout.css" rel='stylesheet'>
+    @yield('styles')
     <style>
         @keyframes showup {
             0% {
@@ -1130,6 +1133,9 @@
 <script>
     function showLoginDialog() {
         $('#LoginModal').modal('show')
+    }
+    function showRegisterDialog() {
+        $('#RegisterModal').modal('show')
     }
     // $('#homepage-search-icon').remove();
     // //Script sample for new search

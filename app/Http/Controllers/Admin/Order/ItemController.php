@@ -33,12 +33,6 @@ class ItemController extends Controller
         $this->module="order";
         $this->moduleCategory=null;
 
-        //set permission to function
-        $this->middleware('permission:'. $this->module.'-list');
-        $this->middleware('permission:'. $this->module.'-create', ['only' => ['create', 'store','duplicate']]);
-        $this->middleware('permission:'. $this->module.'-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:'. $this->module.'-delete', ['only' => ['destroy']]);
-
 
         if( $this->module!=""){
             $this->page_breadcrumbs[] = [
@@ -59,8 +53,7 @@ class ItemController extends Controller
                     $q->select('id','title')->get();
                 }))
                 ->where('module', 'product');
-            }))->where('module', $this->module)
-            ->where('status_confirm',1);
+            }))->where('module', $this->module);
             if ($request->filled('id'))  {
                 $datatable->where(function($q) use($request){
                     $q->orWhere('id', $request->get('id'));
@@ -122,7 +115,7 @@ class ItemController extends Controller
                 ->editColumn('created_at', function($data) {
                     return date('d/m/Y H:i:s', strtotime($data->created_at));
                 })
-                ->editColumn('real_received_price', function($data) {
+                ->editColumn('price', function($data) {
                     return number_format($data->real_received_price). ' đ';
                 })
                 ->editColumn('type', function($data) {
@@ -148,7 +141,7 @@ class ItemController extends Controller
 
 
 
-        return view('admin.order.item.index')
+        return view('admin.order.index')
         ->with('module', $this->module)
         ->with('page_breadcrumbs', $this->page_breadcrumbs);
     }

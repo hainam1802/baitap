@@ -23,7 +23,7 @@ use DB;
 use Validator;
 use Illuminate\Support\Facades\Log;
 
-class OrderController extends Controller
+class HomeController extends Controller
 {
     public function getCart(Request $request, $id){
         $data = Item::with('group')->with('locale')->with('category')

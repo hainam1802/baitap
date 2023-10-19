@@ -17,7 +17,7 @@ class FrontendAuthenticated
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::guard('frontend_backup')->guest()) {
+        if (Auth::guard('frontend')->guest()) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {

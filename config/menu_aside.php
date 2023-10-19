@@ -7,15 +7,7 @@ return [
 
     'items' => [
         // Dashboard
-        [
-            'title' => '- Trang chính',
-            'root' => true,
-            'permission' => '',
-            'icon' => '',
-            'route' => 'admin.index',
-            'page' => '',
-            'new-tab' => false,
-        ],
+
         [
             'title' => '- Quản lý khu ở',
             'root' => true,
@@ -49,6 +41,24 @@ return [
             'permission' => '',
             'icon' => '',
             'route' => 'admin.product.index',
+            'page' => '',
+            'new-tab' => false,
+        ],
+        [
+            'title' => '- Quản lý thành viên',
+            'root' => true,
+            'permission' => '',
+            'icon' => '',
+            'route' => 'admin.user.index',
+            'page' => '',
+            'new-tab' => false,
+        ],
+        [
+            'title' => '- Quản lý đơn hàng',
+            'root' => true,
+            'permission' => '',
+            'icon' => '',
+            'route' => 'admin.order.index',
             'page' => '',
             'new-tab' => false,
         ],

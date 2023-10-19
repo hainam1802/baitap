@@ -16,9 +16,9 @@
 {{-- Content --}}
 @section('content')
 @if(isset($data))
-{{Form::open(array('route'=>array('admin.order.update',$data->id),'method'=>'PUT','id'=>'formMain','enctype'=>"multipart/form-data" , 'files' => true))}}
+{{Form::open(array('route'=>array('admin.locale.update',$data->id),'method'=>'PUT','id'=>'formMain','enctype'=>"multipart/form-data" , 'files' => true))}}
 @else
-{{Form::open(array('route'=>array('admin.order.store'),'method'=>'POST','id'=>'formMain','enctype'=>"multipart/form-data"))}}
+{{Form::open(array('route'=>array('admin.locale.store'),'method'=>'POST','id'=>'formMain','enctype'=>"multipart/form-data"))}}
 @endif
 <div class="row">
    <div class="col-lg-9">
@@ -45,7 +45,7 @@
                  </div>
 {{--                 <div class="col-6 col-md-6">--}}
 {{--                    <label for="status" class="form-control-label">{{ __('Loại khách') }}</label>--}}
-{{--                    {{Form::select('type',config('module.order.type'),old('type', isset($data) ? $data->type : null),array('class'=>'form-control'))}}--}}
+{{--                    {{Form::select('type',config('module.locale.type'),old('type', isset($data) ? $data->type : null),array('class'=>'form-control'))}}--}}
 {{--                    @if($errors->has('type'))--}}
 {{--                    <div class="form-control-feedback">{{ $errors->first('type') }}</div>--}}
 {{--                    @endif--}}
@@ -77,7 +77,7 @@
              {{-----description------}}
              <div class="form-group row">
                  <div class="col-12 col-md-12">
-                     <label for="order">{{ __('Mô tả') }}:</label>
+                     <label for="locale">{{ __('Mô tả') }}:</label>
                      <textarea id="description" name="description" class="form-control ckeditor-source" >{{ old('description', isset($data) ? $data->description : null) }}</textarea>
                      @if ($errors->has('description'))
                          <span class="form-text text-danger">{{ $errors->first('description') }}</span>
@@ -87,7 +87,7 @@
              {{-----content------}}
              <div class="form-group row">
                  <div class="col-12 col-md-12">
-                     <label for="order">{{ __('Nội dung') }}</label>
+                     <label for="locale">{{ __('Nội dung') }}</label>
                      <textarea id="content" name="content" class="form-control ckeditor-source" data-height="400"   data-startup-mode="" >{{ old('content', isset($data) ? $data->content : null) }}</textarea>
                      @if ($errors->has('content'))
                          <span class="form-text text-danger">{{ $errors->first('content') }}</span>
@@ -97,7 +97,7 @@
              <div class="form-group row">
                  {{-----image------}}
                  <div class="col-md-4">
-                     <label for="order">{{ __('Ảnh') }}:</label>
+                     <label for="locale">{{ __('Ảnh') }}:</label>
                      <div class="">
                          <div class="fileinput  {{ old('image', isset($data) ? $data->image : null)!=""?"fileinput-exists":"fileinput-new" }}  " data-provides="fileinput">
                              <div class="fileinput-new thumbnail" style="width: 150px; height: 150px;">
@@ -125,7 +125,7 @@
                  </div>
 {{--                 --}}{{-----icon------}}
 {{--                 <div class="col-md-4">--}}
-{{--                     <label for="order">{{ __('Ảnh icon') }}:</label>--}}
+{{--                     <label for="locale">{{ __('Ảnh icon') }}:</label>--}}
 {{--                     <div class="">--}}
 {{--                         <div class="fileinput  {{ old('image_icon', isset($data) ? $data->image_icon : null)!=""?"fileinput-exists":"fileinput-new" }}  " data-provides="fileinput">--}}
 {{--                             <div class="fileinput-new thumbnail" style="width: 150px; height: 150px;">--}}

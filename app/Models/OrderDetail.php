@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderDetail extends BaseModel
 {
-    protected $table = 'order_detail';
+    protected $table = 'order_details';
 
     protected $dates = [
         'created_at',
@@ -23,12 +23,12 @@ class OrderDetail extends BaseModel
         'ref_id',
         'price',
         'items_id',
-        'order',
         'status',
+        'order_id',
     ];
 
     public function item()
     {
-        return $this->belongsTo(Item::class,'item_id','id')->select(['module','title','description','content','image','url','slug','price','price_old','params','promotion']);
+        return $this->belongsTo(Item::class,'item_id','id');
     }
 }

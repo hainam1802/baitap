@@ -2,7 +2,7 @@
 @section('content')
 <div class="main-home" >
     <div class="col-xs-12 no-padding">
-        <div class="hero-container" id="hero-banner-home" data-href="https://www.ivivu.com/khach-san-hoi-an/khu-nghi-duong-the-nam-hai-hoi-an" style="background-image:url(https://cdn1.ivivu.com/images/2023/08/17/16/fourseason_nha-t_zag1p2_horizontal.webp); cursor: pointer;" >
+        <div class="hero-container" id="hero-banner-home"style="background-image:url(https://cdn1.ivivu.com/images/2023/08/17/16/fourseason_nha-t_zag1p2_horizontal.webp); cursor: pointer;" >
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
@@ -18,10 +18,9 @@
                                         <div class="col-xs-12 v-margin-bottom-15 typeahead-container search-fullframe">
                                             <div class="col-xs-12 no-padding v_field ">
                                                 <div class="input-icon" style="position:absolute;" >
-                                                    <i class="icon-ic_ivivu_user_location"></i>
+                                                    <i class="fas fa-map-marker-alt"></i>
                                                 </div>
-                                                <select id="searchText" style="padding-left:50px" type="text" class="form-control v_field__input search-input typeahead"
-                                                       maxlength="200" placeholder="Bạn muốn đi đâu?">
+                                                <select id="searchText" style="padding-left:50px" type="text" class="form-control v_field__input search-input typeahead" placeholder="Bạn muốn đi đâu?">
                                                     <option value="0">Bạn muốn đi đâu?</option>
                                                     <option value="33">66</option>
                                                     <option value="33">ádasd</option>

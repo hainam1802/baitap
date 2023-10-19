@@ -1,6 +1,17 @@
 {{-- Extends layout --}}
 @extends('admin._layouts.master')
+@section('action_area')
+    <ol class="d-flex justify-content-end pr-3">
+        <div class="btn-group mt-3">
+            <a href="{{route('admin.order.create')}}" type="button" class="btn btn-success font-weight-bolder mr-3">
+                <i class="fas fa-plus-circle icon-md"></i>
+                {{__('Thêm mới')}}
+            </a>
 
+        </div>
+      
+    </ol>
+@endsection
 {{-- Content --}}
 @section('content')
     <div class="card card-custom" id="kt_page_sticky_card">
@@ -26,38 +37,18 @@
                             <input type="text" class="form-control datatable-input" id="id" placeholder="{{__('ID')}}">
                         </div>
                     </div>
-                    {{--username--}}
+                    {{--name--}}
                     <div class="form-group col-12 col-sm-6 col-lg-3">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i
                                         class="fa fa-calendar-check-o"></i></span>
                             </div>
-                            <input type="text" class="form-control datatable-input" id="username"
-                                   placeholder="{{__('Tên tài khoản')}}">
+                            <input type="text" class="form-control datatable-input" id="name"
+                                   placeholder="{{__('Tên địa điểm')}}">
                         </div>
                     </div>
-                    {{--email--}}
-                    <div class="form-group col-12 col-sm-6 col-lg-3">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i
-                                        class="la la-calendar-check-o glyphicon-th"></i></span>
-                            </div>
-                            <input type="text" class="form-control datatable-input" id="email"
-                                   placeholder="{{__('Email')}}">
-                        </div>
-                    </div>
-                    {{--status--}}
-                    <div class="form-group col-12 col-sm-6 col-lg-3">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i
-                                        class="la la-calendar-check-o glyphicon-th"></i></span>
-                            </div>
-                            {{Form::select('status',[''=>'-- Tất cả trạng thái --']+config('module.user.status'),old('status', isset($data) ? $data->status : null),array('id'=>'status','class'=>'form-control datatable-input',))}}
-                        </div>
-                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
@@ -85,13 +76,31 @@
             <!--end: Datatable-->
         </div>
     </div>
-
-
     {{---------------all modal controll-------}}
-
-   
-
-
+    <!-- delete item Modal -->
+    <div class="modal fade" id="deleteModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {{Form::open(array('route'=>array('admin.order.destroy',0),'class'=>'form-horizontal','id'=>'form-delete','method'=>'DELETE'))}}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> {{__('Xác nhận thao tác')}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{__('Bạn thực sự muốn xóa?')}}
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="id" class="id" value=""/>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('Hủy')}}</button>
+                    <button type="submit" class="btn btn-danger m-btn m-btn--custom btn-submit-custom"
+                            data-form="form-delete">{{__('Xóa')}}</button>
+                </div>
+                {{ Form::close() }}
+            </div>
+        </div>
+    </div>
 @endsection
 
 {{-- Styles Section --}}
@@ -124,17 +133,12 @@
                     serverSide: true,
                     "order": [[1, "desc"]],
                     ajax: {
-                        url: '{{url()->current()}}' + '?ajax=1',
+                        url: '{{route("admin.order.index")}}' + '?ajax=1',
                         type: 'GET',
                         data: function (d) {
                             d.id = $('#id').val();
-                            d.username = $('#username').val();
-                            d.roles_id = $('#roles_id').val();
-                            d.email = $('#email').val();
-                            d.status = $('#status').val();
-                            d.started_at = $('#started_at').val();
-                            d.incorrect_txns = $('#incorrect_txns').val();
-                            d.ended_at = $('#ended_at').val();
+                            d.name = $('#name').val();
+                            d.type = $('#type').val();
                         }
                     },
                     buttons: [
@@ -142,55 +146,11 @@
                     columns: [
                         {data: 'id', title: 'ID'},
                         {
-                            data: 'username', title: '{{__('Tên tài khoản')}}',
+                            data: 'title', title: '{{__('Trạng thái')}}',
                             render: function (data, type, row) {
-                                if( row.username+"" !="null"){
-                                    return  row.username;
-                                }
-                                else{
-                                    return "";
-                                }
+                                return row.title
                             }
                         },
-                        {
-                            data: 'email', title: '{{__('Email')}}',
-                            render: function (data, type, row) {
-                                if( row.email+"" !="null"){
-                                    return row.email;
-                                }
-                                else{
-                                    return "";
-                                }
-                            }
-                        },
-
-                        {data: 'phone', title: '{{__('Số điện thoại')}}'},
-                        {
-                            data: 'image', title: '{{__('Hình ảnh')}}', orderable: false, searchable: false,
-                            render: function (data, type, row) {
-                                if (row.image == "" || row.image == null) {
-
-                                    return "<img class=\"image-item\" src=\"/assets/backend/themes/images/empty-photo.jpg\" style=\"max-width: 40px;max-height: 40px\">";
-                                } else {
-                                    return "<img class=\"image-item\" src=\"" + row.image + "\" style=\"max-width: 40px;max-height: 40px\">";
-                                }
-                            }
-                        },
-                        {
-                            data: 'status', title: '{{__('Trạng thái')}}',
-                            render: function (data, type, row) {
-
-                                if (row.status == 1) {
-                                    return "<span class=\"label label-pill label-inline label-center mr-2  label-success \">" + "{{config('module.user.status.1')}}" + "</span>";
-                                } else if (row.status == 2) {
-                                    return "<span class=\"label label-pill label-inline label-center mr-2 label-warning \">" + "{{config('module.user.status.2')}}" + "</span>";
-                                } else {
-                                    return "<span class=\"label label-pill label-inline label-center mr-2 label-danger \">" + "{{config('module.user.status.0')}}" + "</span>";
-                                }
-
-                            }
-                        },
-
 
                         {data: 'created_at', title: '{{__('Thời gian')}}'},
                         {data: 'action', title: 'Thao tác', className:"textSmall", orderable: false, searchable: false}

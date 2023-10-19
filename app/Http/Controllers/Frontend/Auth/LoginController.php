@@ -46,13 +46,13 @@ class LoginController extends Controller
 
     public function __construct()
 	{
-		$this->middleware('guest:frontend_backup')->except('logout');
+		$this->middleware('guest:frontend')->except('logout');
 	}
 
     public function showLoginForm()
 	{
 		session(['link' => url()->previous()]);
-		return view('frontend_backup.pages.auth.login');
+		return view('frontend.pages.auth.login');
 	}
 	// override field login
 	public function username()
@@ -82,10 +82,10 @@ class LoginController extends Controller
 			Cache::put('last_login', Carbon::now(), 1440);
             ActivityLog::create([
                 'user_id'=> $user->id,
-				'prefix' => 'frontend_backup',
+				'prefix' => 'frontend',
                 'method'=> 'LOGIN',
                 'url'=> \Request::fullUrl(),
-                'description'=> 'Đã đăng nhập frontend_backup thành công',
+                'description'=> 'Đã đăng nhập frontend thành công',
                 'ip_address'=>$request->getClientIp(),
                 'user_agent'=>isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'No User Agent'
             ]);
@@ -98,24 +98,24 @@ class LoginController extends Controller
 	}
 	protected function authenticated(Request $request, $user)
     {
-        return redirect(session('link'));
+        return redirect()->back();
     }
 	protected function guard()
 	{
-		return Auth::guard('frontend_backup');
+		return Auth::guard('frontend');
 	}
 	public function logout(Request $request)
 	{
         ActivityLog::create([
-            'user_id'=> Auth::guard('frontend_backup')->user()->username,
-			'prefix' => 'frontend_backup',
+            'user_id'=> Auth::guard('frontend')->user()->username,
+			'prefix' => 'frontend',
             'method'=> 'LOGIN',
             'url'=> \Request::fullUrl(),
-            'content'=> 'Đã đăng xuất frontend_backup thành công',
+            'content'=> 'Đã đăng xuất frontend thành công',
             'ip_address'=>$request->getClientIp(),
             'user_agent'=>isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'No User Agent'
         ]);
-        $this->guard('frontend_backup')->logout();
+        $this->guard('frontend')->logout();
 		return $this->loggedOut($request) ?: redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
 	}
 

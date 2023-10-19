@@ -19,10 +19,21 @@ Route::group(['namespace' => 'Frontend'], function () {
 
     Route::get('/tim-kiem','ProductController@getSearch');
     Route::get('/item-list',[\App\Http\Controllers\Frontend\ProductController::class,'category']);
+    Route::get('/item-list/{slug}',[\App\Http\Controllers\Frontend\ProductController::class,'getDetail']);
+    Route::get('/cart/{id}',[\App\Http\Controllers\Frontend\OrderController::class,'getCart']);
+    Route::get('/checkout/{id}',[\App\Http\Controllers\Frontend\OrderController::class,'getCheckout']);
+    Route::post('/post-order', 'OrderController@postOrderNow');
+    Route::get('/', 'HomeController@index')->name('index');
+
     Route::get('/',function(){
         return view('frontend.pages.index');
 
     })->name('index');
+
+    Route::get('/order',function(){
+        return view('frontend.pages.order');
+
+    })->name('detail');
 
     Route::get('/search', function () {
         return view('frontend.pages.search');

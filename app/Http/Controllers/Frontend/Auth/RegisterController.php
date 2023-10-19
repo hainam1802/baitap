@@ -37,15 +37,15 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:frontend_backup');
+        $this->middleware('guest:frontend');
     }
     protected function guard()
     {
-        return Auth::guard('frontend_backup');
+        return Auth::guard('frontend');
     }
     public function showRegistrationForm()
     {
-        return view('frontend_backup.auth.register');
+        return view('frontend.auth.register');
     }
     /**
      * Get a validator for an incoming registration request.

@@ -31,6 +31,7 @@ class Order extends BaseModel
         'price',
         'items_id',
         'order',
+        'status_confirm',
         'status',
     ];
 
@@ -58,18 +59,6 @@ class Order extends BaseModel
     {
         parent::boot();
 
-        //set default auto add  scope to query
-        static::addGlobalScope('global_scope', function (Builder $model){
-            $model->where('order.shop_id', session('shop_id'));
-        });
-        static::saving(function ($model) {
-            $model->shop_id = session('shop_id');
-        });
-        //end set default auto add  scope to query
-
-        static::deleting(function($model) {
-
-        });
     }
 
 

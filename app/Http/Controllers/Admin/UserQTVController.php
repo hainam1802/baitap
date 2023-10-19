@@ -26,29 +26,22 @@ class UserQTVController extends Controller
 
     public function __construct()
     {
-        //set permission to function
-        $this->middleware('permission:user-qtv-list');
-        $this->middleware('permission:user-qtv-create', ['only' => ['create','store']]);
-        $this->middleware('permission:user-qtv-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:user-qtv-delete', ['only' => ['destroy']]);
-        $this->middleware('permission:plus-minus-money', ['only' => ['getMoney','postMoney','getUserToMoney']]);
-
 
         $this->page_breadcrumbs[] = [
-            'page' => route('admin.user-qtv.index'),
-            'title' => __("Danh sách nhân sự")
+            'page' => route('admin.user.index'),
+            'title' => __("Danh sách thành viên")
         ];
     }
 
     public function index(Request $request)
     {
 
-        ActivityLog::add($request, 'Truy cập danh sách user-qtv');
+        ActivityLog::add($request, 'Truy cập danh sách user');
         if($request->ajax) {
             $datatable= User::with(['roles'=>function($query){
                 $query->select(['id','title','name']);
             }])
-                ->where("account_type",$this->account_type)
+                ->where("account_type",2)
                 ->orderByRaw('FIELD(`status`,1,2,3,4,0,-1,99)');;
 
             if ($request->filled('id'))  {
@@ -58,16 +51,6 @@ class UserQTVController extends Controller
             }
 
 
-             if ($request->filled('incorrect_txns')) {
-                 if($request->incorrect_txns==1){
-                     $datatable->whereRaw('(balance_in - balance_out - balance) != 0');
-                 }
-                 else{
-                     $datatable->havingRaw('(balance_in - balance_out - balance) = 0');
-                 }
-
-             }
-
             if ($request->filled('username')) {
                 $datatable->where('username', 'LIKE', '%' . $request->get('username') . '%');
             }
@@ -75,22 +58,6 @@ class UserQTVController extends Controller
                 $datatable->where('email', 'LIKE', '%' . $request->get('email') . '%');
             }
 
-            if ($request->filled('roles_id')) {
-                if(is_array($request->roles_id) &&  in_array('-1',$request->roles_id) && count($request->roles_id)==1){
-                    $datatable->doesntHave('roles');
-                }
-                elseif(is_array($request->roles_id) &&  in_array('-1',$request->roles_id)){
-                    $datatable->doesntHave('roles');
-                    $datatable->orWhereHas('roles', function ($query) use ($request) {
-                        $query->whereIn('id', $request->get('roles_id'));
-                    });
-                }
-                else{
-                    $datatable->WhereHas('roles', function ($query) use ($request) {
-                        $query->whereIn('id', $request->get('roles_id'));
-                    });
-                }
-            }
 
             if ($request->filled('status')) {
                 $datatable->where('status',$request->get('status') );
@@ -120,33 +87,7 @@ class UserQTVController extends Controller
                 ->editColumn('created_at', function($row) {
                     return date('d/m/Y H:i:s', strtotime($row->created_at));
                 })
-                ->addColumn('action', function($row) {
-                    $temp = '';
-                    if(auth()->user()->can('user-qtv-edit')){
-                        $temp .= "<a href=".route('admin.user-qtv.edit',$row->id)." rel=\"$row->id\" class=\"btn btn-outline-warning btn-sm mr-1\">
-                                        <i class=\"fas fa-edit\"></i> <span>Sửa</span>
-                                    </a>";
-                    };
-                    if ($row->status == 0) {
-                        if(auth()->user()->can('user-qtv-unlock')){
-                            $temp .= "<button rel=\"$row->id\" type=\"button\" class=\"btn btn-outline-danger btn-sm mr-1\" data-toggle=\"modal\" data-target=\"#unlockModal\">
-                                        <i class=\"fas fa-lock-open\"></i> <span>Mở khóa</span>
-                                    </button>";
-                        };
-                    } else {
-                        if(auth()->user()->can('user-qtv-unlock')){
-                            $temp .= "<button rel=\"$row->id\" type=\"button\" class=\"btn btn-outline-danger btn-sm mr-1\" data-toggle=\"modal\" data-target=\"#lockModal\">
-                                        <i class=\"fas fa-lock\"></i> <span>Khóa</span>
-                                    </button>";
-                        };
-                    }
-                    if(config('module.user-qtv.need_set_permission')){
-                        $temp.= "<a href=\"".route('admin.user-qtv.set_permission',$row->id)."\" rel=\"$row->id\"  class=\"btn btn-outline-info btn-sm mr-1\">
-                                        <i class=\"fa fa-users\"></i> <span>Phân quyền</span>
-                                    </a>";
-                    }
-                    return $temp;
-                })
+
                 ->whitelist(['id'])
                 ->toJson();
         }
@@ -179,72 +120,6 @@ class UserQTVController extends Controller
     public function store(Request $request)
     {
 
-        $roleAdmin = Role::where('name','admin')->first();
-        if(!$roleAdmin){
-            return redirect()->back()->withErrors(__('Hệ thống chưa khởi tạo vai trò Admin.Liên hệ admin để xử lý'))->withInput();
-        }
-
-        if(!auth()->user()->hasRole('admin') && in_array($roleAdmin->id,$request->role_ids??[])){
-            return redirect()->back()->withErrors(__('Bạn không có quyền tạo hoặc chỉnh sửa tài khoản Admin'))->withInput();
-        }
-
-
-        $this->validate($request, [
-            'username' => 'required|unique:users,username',
-            'email' => 'required|unique:users,email',
-            //'phone' => 'required|unique:users',
-            'username' => 'required|min:3|max:16|unique:users|regex:/^([A-Za-z0-9])+$/i',
-            'password' => 'required|min:6|max:32',
-            'password2' => 'required|min:6|max:32',
-            //'password_confirmation' => 'required|same:password',
-        ], [
-            'username.required' => 'Vui lòng nhập tên tài khoản',
-            'username.min' => 'Tên tài khoản ít nhất 3 ký tự.',
-            'username.unique' => 'Tên tài khoản đã được sử dụng.',
-            'username.regex' => 'Tên tài khoản không ký tự đặc biệt',
-            'password.required' => 'Vui lòng nhập mật khẩu',
-            'username.max' => 'Tên tài khoản không quá 16 ký tự.',
-            'password.min' => 'Mật khẩu phải ít nhất 6 ký tự.',
-            'password.max' => 'Mật khẩu không vượt quá 32 ký tự.',
-            'password_confirmation.same' => 'Mật khẩu xác nhận không đúng.',
-
-            'password2.required' => 'Vui lòng nhập mật khẩu',
-            'password2.min' => 'Mật khẩu 2 phải ít nhất 6 ký tự.',
-            'password2.max' => 'Mật khẩu 2 không vượt quá 32 ký tự.',
-            //'password2_confirmation.same' => 'Mật khẩu xác nhận không đúng.',
-
-            'email.required' => 'Vui lòng nhập trường này',
-            'email.email' => 'Địa chỉ email không đúng định dạng.',
-            'email.unique' => 'Địa chỉ email đã được sử dụng.',
-            //'phone.unique'	=> 'Số điện thoại đã được sử dụng.',
-            //'created_at.required' => 'Vui lòng nhập ngày tạo',
-            //'created_at.date_format' => 'Vui lòng nhập đúng định dạng ngày tháng (dd/mm/YYYY H:i:s)',
-        ]);
-
-        $input = $request->all();
-        if ($request->filled('password')) {
-            $input['password'] = \Hash::make($request->password);
-
-        }
-        if ($request->filled('password2')) {
-            $input['password2'] = \Hash::make($request->password2);
-
-        }
-        $input['account_type'] = $this->account_type;
-        $input['created_by'] = auth()->user()->id;
-        $data = User::create($input);
-
-        //update roles of user
-        $data->syncRoles(isset($request->role_ids) ? $request->role_ids : []);
-
-
-        ActivityLog::add($request, 'Tạo mới thành công user-qtv #'.$data->id);
-
-        if ($request->filled('submit-close')) {
-            return redirect()->route('admin.user-qtv.index')->with('success', __('Thêm mới thành công !'));
-        } else {
-            return redirect()->back()->with('success', __('Thêm mới thành công !'));
-        }
     }
     public function show(Request $request,$id)
     {
@@ -255,106 +130,17 @@ class UserQTVController extends Controller
     public function edit(Request $request,$id)
     {
 
-        $this->page_breadcrumbs[] =[
-            'page' => '#',
-            'title' => __("Cập nhật")
-        ];
-        $data = User::with('roles')->where("account_type",$this->account_type)->findOrFail($id);
-        if(!auth()->user()->hasRole('admin') && $data->hasRole('admin')){
-            return redirect()->back()->withErrors(__('Bạn không có quyền tạo hoặc chỉnh sửa tài khoản Admin'))->withInput();
-        }
-        $roles=Role::orderBy('order','asc')->get();
 
-
-        ActivityLog::add($request, 'Vào form edit user-qtv #'.$data->id);
-        return view('admin.user-qtv.create_edit')
-            ->with('data', $data)
-            ->with('page_breadcrumbs', $this->page_breadcrumbs)
-            ->with('roles', $roles);
     }
 
     public function update(Request $request,$id)
     {
-        $data = User::where("account_type",$this->account_type)->findOrFail($id);
 
-
-        //kiểm tra có  quyền chỉnh sửa tài khoản admin
-        if(!auth()->user()->hasRole('admin') && $data->hasRole('admin')){
-            return redirect()->back()->withErrors(__('Bạn không có quyền tạo hoặc chỉnh sửa tài khoản Admin'))->withInput();
-        }
-
-        $this->validate($request,[
-            'email'=>'required|unique:users,email,'.$id
-        ],[
-            'email.required' => 'Vui lòng nhập trường này',
-            'email.email'	=> 'Địa chỉ email không đúng định dạng.',
-            'email.unique'	=> 'Địa chỉ email đã được sử dụng.',
-        ]);
-
-        $input = $request->except('username', 'password','password2', 'account_type', 'balance');
-
-        if($request->filled('password'))
-        {
-            $input['password'] = \Hash::make($request->password);
-
-        }
-        if($request->filled('password2'))
-        {
-            $input['password2'] = \Hash::make($request->password2);
-        }
-        $data = User::findOrFail($id);
-
-        $data->update($input);
-        //update roles of user
-        $data->syncRoles(isset($request->role_ids) ? $request->role_ids : []);
-
-
-
-        ActivityLog::add($request, 'Cập nhật thành công user-qtv #'.$data->id);
-        if($request->filled('submit-close')){
-            return redirect()->route('admin.user-qtv.index')->with('success',__('Cập nhật thành công !'));
-        }
-        else {
-            return redirect()->back()->with('success',__('Cập nhật thành công !'));
-        }
     }
     public function destroy(Request $request)
     {
 
 
-
-        $input=explode(',',$request->id);
-
-        $currentUserRole=auth()->user()->hasRole('admin');
-
-         $data=User::with(['roles'=>function($query){
-         }])->whereIn('id',$input)
-             ->where("account_type",$this->account_type)
-            ->get();
-
-         foreach ($data as $aUser){
-             $isAdmin=false;
-             foreach ($aUser->roles??[] as $role){
-
-                if($role->name=='admin'){
-                    $isAdmin=true;
-                    break;
-                }
-             }
-             //nếu không phải admin thì không cho cập nhật,xóa user có quyền admin
-             if(!$currentUserRole  &&  $isAdmin==true){
-             }
-             else{
-                 $aUser->update([
-                     'status'=>0
-                 ]);
-                 //nếu cho xóa user vĩnh viễn
-                 //$aUser->delete();
-             }
-         }
-        ActivityLog::add($request, 'Xóa thành công user-qtv #'.json_encode($input));
-
-        return redirect()->back()->with('success',__('Xóa thành công !'));
     }
     public function update_field(Request $request)
     {

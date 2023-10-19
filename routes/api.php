@@ -17,6 +17,4 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::post('/api/hook/order','Api\PurchaseController@postGetOrderId');
-Route::post('/api/message/telegram','Api\PurchaseController@postMessageTelegram');
-Route::get('/api/hook/callback/{site}', 'Api\ListenCallbackController@getHookCallback');
+

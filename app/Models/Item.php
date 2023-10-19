@@ -45,7 +45,6 @@ class Item extends BaseModel
         'price',
         'status',
         'quantity',
-        'quantity',
         'quantity_people',
         'ended_at',
 
