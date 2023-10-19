@@ -34,17 +34,11 @@ class ProductController extends Controller
                     'message' => 'Không có dữ liệu'
                 ]);
             }
-			$data = Product::with('category')->where(function ($query) use ($request){
+			$data = Item::with('category')->where(function ($query) use ($request){
 				$query->where('title', 'LIKE', '%' . $request->q . '%');
 			})
 			->where('status',1)
-			->where('status_display',1)
-			->with(['product_attribute' => function($q) {
-				$q->with('attribute');
-				$q->with('product_attribute_value_able');
-			}])
-			->where('parent_id','!=',0)
-			->select('title','image','slug','url','price','price_old')->limit(20)->get();
+			->limit(20)->get();
 			$data->map(function($item) {
 				if(isset($item->price_old)){
 					$item->price_old = number_format($item->price_old).' ₫';
@@ -66,32 +60,17 @@ class ProductController extends Controller
     public function category(Request $request)
     {
         $search = $request->get('q');
-		$items_prd = Product::with('category')->where(function ($query) use ($search){
+		$items_prd = Item::with('category')->where(function ($query) use ($search){
 			$query->where('title', 'LIKE', '%' . $search . '%');
 		})
-		->where('status',1)
-		->where('status_display',1)
-		->with(['product_attribute' => function($q) {
-			$q->with('attribute');
-			$q->with('product_attribute_value_able');
-		}])
-		->where('parent_id','!=',0);
+		->where('status',1);
         if(isset($search)){
             $items_prd = $items_prd->where('title', 'LIKE', '%' . $request->q . '%');
         }
-        $items_prd = $items_prd->orderBy('id','desc')
-		->select('id','title','image','url','slug','price','price_old','percent_sale','status','url_type','target','totalviews','description','content','promotion')
-		->paginate(20);
+        $items_prd = $items_prd->orderBy('id','desc')->paginate(8);
         if ($request->ajax()) {
             if($items_prd && count($items_prd) > 0){
-                if(HelpersDevice::isMobile()) {
-                    return view('frontend.pages.mobile.func.load_item_prd')
-                        ->with('data',$items_prd);
-                }
-                else{
-                    return view('frontend.pages.desktop.func.load_item_prd')
-                        ->with('data',$items_prd);
-                }
+                return view('frontend.pages.func.load_item_prd')->with('items_prd',$items_prd);
             }
             else{
                 $res = [
@@ -102,13 +81,9 @@ class ProductController extends Controller
             }
         }
 		else{
-			if(HelpersDevice::isMobile()) {
-				return view('frontend.pages.mobile.search')->with('items_prd',$items_prd);
-			}
-			else{
-				return view('frontend.pages.desktop.search')->with('items_prd',$items_prd);
-			}
-		}
+            return view('frontend.pages.item_list')->with('items_prd',$items_prd);
+
+        }
 
 
     }
@@ -193,11 +168,11 @@ class ProductController extends Controller
 		if ($request->ajax()) {
 			if($items_prd && count($items_prd) > 0){
 				if(HelpersDevice::isMobile()) {
-					return view('frontend.pages.mobile.func.load_item_prd')
+					return view('frontend_backup.pages.mobile.func.load_item_prd')
 					->with('data',$items_prd);
 				}
 				else{
-					return view('frontend.pages.desktop.func.load_item_prd')
+					return view('frontend_backup.pages.desktop.func.load_item_prd')
 					->with('data',$items_prd);
 				}
 			}
@@ -213,7 +188,7 @@ class ProductController extends Controller
 			$data->totalviews = $data->totalviews + 1;
 			$data->save();
 			if(HelpersDevice::isMobile()) {
-				return view('frontend.pages.mobile.category')
+				return view('frontend_backup.pages.mobile.category')
 				->with('breadcumb',$breadcumb)
 				->with('currentCategory',$currentCategory)
 				->with('items_prd',$items_prd)
@@ -221,7 +196,7 @@ class ProductController extends Controller
 				->with('data',$data);
 			}
 			else{
-				return view('frontend.pages.desktop.category')
+				return view('frontend_backup.pages.desktop.category')
 				->with('breadcumb',$breadcumb)
 				->with('items_prd',$items_prd)
 				->with('alltempParrentId',$alltempParrentId)
@@ -323,8 +298,8 @@ class ProductController extends Controller
         }
         $comment = Comment::where('product_id',$data->id)->where('module','comment')->where('status','1')->get();
         $favourite = 0;
-        if(Auth::guard('frontend')->check()){
-            $activeFavourite = Favourite::where('user_id',Auth::guard('frontend')->user()->id)->where('item_id',$data->id)->first();
+        if(Auth::guard('frontend_backup')->check()){
+            $activeFavourite = Favourite::where('user_id',Auth::guard('frontend_backup')->user()->id)->where('item_id',$data->id)->first();
             if($activeFavourite){
                 if($activeFavourite->status == 1){
                     $favourite = 1;
@@ -349,7 +324,7 @@ class ProductController extends Controller
 			}
 		}
         if(HelpersDevice::isMobile()) {
-            return view('frontend.pages.mobile.detail')
+            return view('frontend_backup.pages.mobile.detail')
                 ->with('breadcumb',$breadcumb)
                 ->with('data',$data)
                 ->with('items_prd',$items_prd)
@@ -361,7 +336,7 @@ class ProductController extends Controller
                 ->with('favourite',$favourite);
         }
         else{
-            return view('frontend.pages.desktop.detail')
+            return view('frontend_backup.pages.desktop.detail')
 			->with('breadcumb',$breadcumb)
 			->with('data',$data)
             ->with('items_prd',$items_prd)
@@ -423,10 +398,10 @@ class ProductController extends Controller
 			$attribute_compare[$key]['value'][] = $item['value'];
 		}
         if(HelpersDevice::isMobile()) {
-            return view('frontend.pages.mobile.compare',compact('data','data_compare','attribute_compare','data_attribute_compare','data_attribute'));
+            return view('frontend_backup.pages.mobile.compare',compact('data','data_compare','attribute_compare','data_attribute_compare','data_attribute'));
         }
         else{
-            return view('frontend.pages.desktop.compare',compact('data','data_compare','attribute_compare','data_attribute_compare','data_attribute'));
+            return view('frontend_backup.pages.desktop.compare',compact('data','data_compare','attribute_compare','data_attribute_compare','data_attribute'));
         }
     }
 	public function getInstallment(Request $request, $slug){
@@ -492,10 +467,10 @@ class ProductController extends Controller
 		// số tiền vay
 
 		if(HelpersDevice::isMobile()) {
-			return view('frontend.pages.mobile.installment',compact('data','data_attribute','installment','prepaid_percentage','month','comment'));
+			return view('frontend_backup.pages.mobile.installment',compact('data','data_attribute','installment','prepaid_percentage','month','comment'));
 		}
 		else{
-			return view('frontend.pages.desktop.installment',compact('data','data_attribute','installment','prepaid_percentage','month','comment'));
+			return view('frontend_backup.pages.desktop.installment',compact('data','data_attribute','installment','prepaid_percentage','month','comment'));
 		}
 	}
     public function postComment(Request $request){
@@ -588,11 +563,11 @@ class ProductController extends Controller
 			->get();
 		}
 		if(HelpersDevice::isMobile()) {
-			return view('frontend.pages.mobile.product_seen')
+			return view('frontend_backup.pages.mobile.product_seen')
 			->with('data',$data);
 		}
 		else{
-			return view('frontend.pages.desktop.product_seen')
+			return view('frontend_backup.pages.desktop.product_seen')
 			->with('data',$data);
 		}
 	}

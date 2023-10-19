@@ -29,6 +29,10 @@ Route::group(array('as' => 'admin.','prefix' => 'admin','middleware' => ['auth',
     Route::any('/ckfinder/product-acc-browser/{id}', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')->name('ckfinder_browser_acc')->middleware('ckfinder');
     Route::get('/test', 'Admin\TestController@index');
     Route::resource('guest','Admin\GuestController');
+    Route::resource('group','Admin\Product\GroupController');
+    Route::resource('category','Admin\Product\CategoryController');
+    Route::resource('locale','Admin\Product\LocationController');
+    Route::resource('product','Admin\Product\ItemController');
     Route::get('/dashboard', 'Admin\IndexController@index')->name('index');
     Route::get('clear-cache',function(){
         \Cache::flush();

@@ -842,7 +842,20 @@ return [
             '0' => 'Trừ tiền'
         ],
     ],
-
+    'group' => [
+        'title'=>"Danh mục",
+        'status' => [
+            '1' => 'Hoạt động',
+            '0' => 'Ngừng hoạt động',
+        ],
+    ],
+    'locale' => [
+        'title'=>"Địa điểm",
+        'status' => [
+            '1' => 'Hoạt động',
+            '0' => 'Ngừng hoạt động',
+        ],
+    ],
 
 
 

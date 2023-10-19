@@ -40,7 +40,7 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'frontend' => [
+        'frontend_backup' => [
             'driver'   => 'session',
             'provider' => 'clients',
         ],

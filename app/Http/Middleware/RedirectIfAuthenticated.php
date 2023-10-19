@@ -26,8 +26,8 @@ class RedirectIfAuthenticated
 
             if (Auth::guard($guard)->check()) {
 
-                if($guard == "frontend"){
-                    //frontend guard.
+                if($guard == "frontend_backup"){
+                    //frontend_backup guard.
                     return redirect()->route('/');
                 } else {
                     //user was authenticated with admin guard.

@@ -61,7 +61,7 @@ class BlogController extends Controller
             ->select('id','title','image','order','url','slug','price','price_old','price_input','percent_sale','status','url_type','target','totalviews','description','content','promotion','created_at')
             ->paginate(8);
 //        dd($items_prd);
-        return view('frontend.pages.news')->with('items_prd',$items_prd);
+        return view('frontend_backup.pages.news')->with('items_prd',$items_prd);
     }
     public function getCategory(Request $request,$data){
         $data->totalviews = $data->totalviews + 1;
@@ -123,7 +123,7 @@ class BlogController extends Controller
         ->orderBy('id','desc')
         ->limit(6)
         ->get();
-            return view('frontend.pages.news_category')
+            return view('frontend_backup.pages.news_category')
                 ->with('breadcumb',$breadcumb)
                 ->with('currentCategory',$currentCategory)
                 ->with('data_new',$data_new)
@@ -151,7 +151,7 @@ class BlogController extends Controller
         ->orderBy('id','desc')
         ->limit(10)
         ->get();
-        return view('frontend.pages.news_detail')
+        return view('frontend_backup.pages.news_detail')
         ->with('data_new',$data_new)
         ->with('data_involve',$data_involve)
         ->with('data',$data);

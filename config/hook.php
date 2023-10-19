@@ -3,7 +3,7 @@
         'shop' => [
             "A" => [
                 'name' => 'PASSIONZONE',
-                'callback' => 'https://frontend.passionzone.net/api/callback/hook'
+                'callback' => 'https://frontend_backup.passionzone.net/api/callback/hook'
             ],
         ],
         'gate_id' => [

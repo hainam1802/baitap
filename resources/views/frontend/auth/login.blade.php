@@ -1,61 +1,60 @@
+<!-- Login Modal -->
+<div id="LoginModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-@extends('frontend.layouts.master')
-@section('content')
-
-<div class="container">
-    <div class="login-form">
-        <div class="login-bg">
-            <img src="assets/frontend/image/login-bg.png" />
+        <div class="close-modal-button" data-dismiss="modal">
+            <span class="icon-ic_ivivu_user_close"></span>
         </div>
-        <div class="form">
-            <h1>Đăng nhập</h1>
 
-            <div class="external">
-                <form>
-                    <button class="btn-extlogin btn-facebook" title="Đăng nhập qua Facebook" type="submit" id="Facebook" name="provider" value="Facebook"><img src="assets/frontend/image/login-facebook.png" /> Tiếp tục với Facebook</button>
-                    <button class="btn-extlogin btn-google" type="submit" title="Đăng nhập qua Google+" id="Google" name="provider" value="Google"><img src="assets/frontend/image/login-google.png" /> Đăng nhập với Google</button>
-                </form>
+        <!-- Modal content-->
+        <div class="modal-content row">
+            <p class="first-text">Đăng nhập bằng:</p>
+            <div class="col-xs-12 no-padding login-social">
+                <div class="col-xs-6 btn-left-div">
+                    <button class="btn btn-block btn-social btn-facebook" onclick="loginByFacebook()">
+                        <i class="fa fa-facebook"></i> Facebook
+                    </button>
+                </div>
+
+                <div class="col-xs-6 btn-right-div">
+                    <button class="btn btn-block btn-social btn-google" id="loginGoogleButton">
+                        <i class="fa fa-google"></i> Google
+                    </button>
+                </div>
             </div>
 
-            <div class="split">
-                <p>Hoặc</p>
+            <div class="col-xs-12 separate">
+                <div class="col-xs-12 separate__inner">
+                    <span class="separate__text">Hoặc</span>
+                </div>
             </div>
 
-            <div class="internal">
-                <form action="{{url('login')}}" method="POST">
-                    {{ csrf_field() }}
-                    <div class="mb-2 text-center" style="padding-bottom: 6px">
-                        <span class="help-block text-danger notify-error" style="font-size: .8rem;color: red" >
-                            <strong>{{ isset($errors) ? $errors->first() : null }}</strong>
-                    </span>
-                    </div>
-                    <div class="row">
-                        <div class="label">Email</div>
-                        <div class="input">
-                            <input type="text" name="email" id="email" />
+            <form id="loginForm">
+                <input type="text" name="IsRedirectMember" style="display: none;" value="false" />
+                <div class="col-xs-12 no-padding login-form">
+                    <div class="col-xs-12">
+                        <div class="form-group v-margin-bottom-20">
+                            <label class="control-label hidden-xs">Email / Số điện thoại</label>
+                            <input type='text' class="form-control input-lg" placeholder="Email / Số điện thoại" name="EmailPhoneDN" required />
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="label">Mật khẩu</div>
-                        <div class="input">
-                            <input type="password" name="password" id="password" />
+                    <div class="col-xs-12">
+                        <div class="form-group v-margin-bottom-5">
+                            <label class="control-label hidden-xs">Mật khẩu </label>
+                            <div class="clearfix"></div>
+                            <input type='password' class="form-control input-lg" placeholder="Mật khẩu" maxlength="50" pattern=".{6,}" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Mật khẩu tối thiểu 6 ký tự' : '');" name="PasswordDN" required />
+                            <small class="text-danger errorMsg"></small>
                         </div>
+                        <span class="pull-right v-margin-bottom-20"><a href="https://member.ivivu.com//forgot-pass" target="_blank" class="register-link">Quên mật khẩu? </a></span>
                     </div>
-                    <div class="row">
-                        <div class="button-group">
-                            <button class="btn btn-submit" type="submit">ĐĂNG NHẬP</button>
-                            <a class="btn btn-link " href="/register">ĐĂNG KÝ</a>
-                        </div>
+                    <div class="col-xs-12">
+                        <button type="submit" class="btn btn-login col-xs-12">Đăng nhập</button>
+                        <!-- <p class="text-center">Chưa có tài khoản? <a href="#" class="register-link">Đăng ký tại đây <i class="fa fa-arrow-right"></i></a></p> -->
                     </div>
 
-                    {{-- <div class="row">
-                        <p class="forgotpass"><a class="" href="/Account/ForgotPassword">Quên mật khẩu?</a></p>
-                    </div> --}}
-                </form>
-            </div>
+                </div>
+            </form>
+
         </div>
     </div>
 </div>
-
-
-@endsection

@@ -86,10 +86,10 @@ class CartController extends Controller
             }
         }
         if(HelpersDevice::isMobile()) {
-            return view('frontend.pages.mobile.cart',compact('cart','total','total_base','count'));
+            return view('frontend_backup.pages.mobile.cart',compact('cart','total','total_base','count'));
         }
         else{
-            return view('frontend.pages.desktop.cart',compact('cart','total','total_base','count'));
+            return view('frontend_backup.pages.desktop.cart',compact('cart','total','total_base','count'));
         }
     }
     public function addCart(Request $request, $id){

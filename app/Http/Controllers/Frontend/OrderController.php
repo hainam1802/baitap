@@ -26,18 +26,18 @@ use Illuminate\Support\Facades\Log;
 class OrderController extends Controller
 {
     public function getCheckout(Request $request, $id){
-        $user = Auth::guard('frontend')->user();
+        $user = Auth::guard('frontend_backup')->user();
         $data = Order::where('author_id',$user->id)->where('module','order')->where('id',$id)->where('status_confirm',2)->firstOrFail();
         $detail = OrderDetail::where('order_id',$data->id)->get();
         if(HelpersDevice::isMobile()) {
-            return view('frontend.pages.mobile.checkout',compact('data','detail'));
+            return view('frontend_backup.pages.mobile.checkout',compact('data','detail'));
         }
         else{
-            return view('frontend.pages.desktop.checkout',compact('data','detail'));
+            return view('frontend_backup.pages.desktop.checkout',compact('data','detail'));
         }
     }
     public function postCheckout(Request $request,$id){
-        $user = Auth::guard('frontend')->user();
+        $user = Auth::guard('frontend_backup')->user();
         $data = Order::where('author_id',$user->id)->where('module','order')->where('status_confirm',2)->where('id',$id)->firstOrFail();
         $data->status_confirm = 1;
         $data->save();
@@ -48,26 +48,26 @@ class OrderController extends Controller
     }
 
     public function orderSuccess(Request $request, $id){
-        $user = Auth::guard('frontend')->user();
+        $user = Auth::guard('frontend_backup')->user();
         $data = Order::where('author_id',$user->id)->where('module','order')->where('id',$id)->where('status_confirm',1)->firstOrFail();
         $detail = OrderDetail::where('order_id',$data->id)->get();
         if(HelpersDevice::isMobile()) {
-            return view('frontend.pages.mobile.order_success',compact('data','detail'));
+            return view('frontend_backup.pages.mobile.order_success',compact('data','detail'));
         }
         else{
-            return view('frontend.pages.desktop.order_success',compact('data','detail'));
+            return view('frontend_backup.pages.desktop.order_success',compact('data','detail'));
         }
     }
 
     public function getOrder(Request $request, $id){
-        $user = Auth::guard('frontend')->user();
+        $user = Auth::guard('frontend_backup')->user();
         $data = Order::where('author_id',$user->id)->where('module','order')->where('id',$id)->where('status_confirm',1)->firstOrFail();
         $detail = OrderDetail::where('order_id',$data->id)->get();
         if(HelpersDevice::isMobile()) {
-            return view('frontend.pages.mobile.checkout',compact('data','detail'));
+            return view('frontend_backup.pages.mobile.checkout',compact('data','detail'));
         }
         else{
-            return view('frontend.pages.desktop.checkout',compact('data','detail'));
+            return view('frontend_backup.pages.desktop.checkout',compact('data','detail'));
         }
     }
 
@@ -145,7 +145,7 @@ class OrderController extends Controller
         $count = array_sum($count);
         $order = Order::create([
             'module' => 'order',
-            'author_id' => Auth::guard('frontend')->user()->id,
+            'author_id' => Auth::guard('frontend_backup')->user()->id,
             'price' => $total_base,
             'real_received_price' => $total,
             'type' => 1,
@@ -271,7 +271,7 @@ class OrderController extends Controller
             $total = $data->price_old * $quantity;
             $order = Order::create([
                 'module' => 'order',
-                'author_id' => Auth::guard('frontend')->user()->id,
+                'author_id' => Auth::guard('frontend_backup')->user()->id,
                 'price' => $total_base,
                 'real_received_price' => $total,
                 'type' => 1,
@@ -365,7 +365,7 @@ class OrderController extends Controller
                 'message' => "Sản phẩm không tồn tại.",
             ]);
         }
-        $checkOrder = Order::where('module','installment')->where('status',2)->where('author_id',Auth::guard('frontend')->user()->id)->first();
+        $checkOrder = Order::where('module','installment')->where('status',2)->where('author_id',Auth::guard('frontend_backup')->user()->id)->first();
         if($checkOrder){
             return response()->json([
                 'status' => 0,
@@ -376,7 +376,7 @@ class OrderController extends Controller
         $total = $data->price_old;
         $order = Order::create([
             'module' => 'installment',
-            'author_id' => Auth::guard('frontend')->user()->id,
+            'author_id' => Auth::guard('frontend_backup')->user()->id,
             'ref_id' => $data->id,
             'price' => $total_base,
             'real_received_price' => $total,
@@ -420,7 +420,7 @@ class OrderController extends Controller
             'quantity' => 1,
             'value' =>null,
         ]);
-        $username = Auth::guard('frontend')->user()->fullname??Auth::guard('frontend')->user()->username;
+        $username = Auth::guard('frontend_backup')->user()->fullname??Auth::guard('frontend_backup')->user()->username;
         $text = "Thông báo từ ".\Request::getHost().": Tài khoản ".$username." vừa gửi yêu cầu trả góp. Mã đơn: #".$order->id;
         Helpers::TelegramNotify($text);
         return response()->json([

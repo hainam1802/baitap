@@ -12,6 +12,7 @@
         "php": "^7.3|^8.0",
         "ext-json": "*",
         "bacon/bacon-qr-code": "1.0.3",
+        "ckeditor/ckeditor": "^4.22",
         "ckfinder/ckfinder-laravel-package": "^3.5",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",

@@ -16,13 +16,13 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 
-View::composer('frontend.widget.test', function ($view) {
+View::composer('frontend_backup.widget.test', function ($view) {
 
     $data = "ok";
     dd($data);
     return $view->with('data', $data);
 });
-View::composer('frontend.pages.desktop.advertise.__widget.__sliderhome', function ($view) {
+View::composer('frontend_backup.pages.desktop.advertise.__widget.__sliderhome', function ($view) {
 
     $data = Item::where('status', '=', 1)
         ->where('module', '=', config('module.advertise.key'))
@@ -44,7 +44,7 @@ View::composer('layouts.desktop.header', function ($view) {
 });
 
 // slide trang chủ desktop
-View::composer('frontend.widget.desktop._slide', function ($view) {
+View::composer('frontend_backup.widget.desktop._slide', function ($view) {
     $data = Item::where('status', '=', 1)
     ->where('module', '=', config('module.advertise.key'))
     ->where('position','=','SLIDE')
@@ -56,7 +56,7 @@ View::composer('frontend.widget.desktop._slide', function ($view) {
 });
 
 // slide trang chủ mobile
-View::composer('frontend.widget.mobile._slide', function ($view) {
+View::composer('frontend_backup.widget.mobile._slide', function ($view) {
     $data = Item::where('status', '=', 1)
     ->where('module', '=', config('module.advertise.key'))
     ->where('position','=','SLIDE')
@@ -70,7 +70,7 @@ View::composer('frontend.widget.mobile._slide', function ($view) {
 
 // menu top desktop
 
-View::composer('frontend.widget.desktop._menu_top', function ($view) {
+View::composer('frontend_backup.widget.desktop._menu_top', function ($view) {
     $data = Group::where('status', '=', 1)
     ->where('module', '=', config('module.menutop-category.key'))
     ->select('image','title','target','url')
@@ -81,7 +81,7 @@ View::composer('frontend.widget.desktop._menu_top', function ($view) {
 });
 // menu top mobile
 
-View::composer('frontend.widget.mobile._menu_top', function ($view) {
+View::composer('frontend_backup.widget.mobile._menu_top', function ($view) {
     $data = Group::where('status', '=', 1)
     ->where('module', '=', config('module.menutop-category.key'))
     ->select('image','title','target','url')
@@ -93,7 +93,7 @@ View::composer('frontend.widget.mobile._menu_top', function ($view) {
 
 //  menu chính desktop
 
-View::composer('frontend.widget.desktop._menu', function ($view) {
+View::composer('frontend_backup.widget.desktop._menu', function ($view) {
     $data = Group::where('status', '=', 1)
     ->where('module', '=', config('module.menu-category.key'))
     ->select('id','image','title','target','url','parent_id','slug')
@@ -104,7 +104,7 @@ View::composer('frontend.widget.desktop._menu', function ($view) {
 });
 //  menu chính mobile
 
-View::composer('frontend.widget.mobile._menu', function ($view) {
+View::composer('frontend_backup.widget.mobile._menu', function ($view) {
     $data = Group::where('status', '=', 1)
     ->where('module', '=', config('module.menu-category.key'))
     ->select('id','image','title','target','url','parent_id','slug')
@@ -115,7 +115,7 @@ View::composer('frontend.widget.mobile._menu', function ($view) {
 });
 //  menu chính category mobile
 
-View::composer('frontend.widget.mobile._menu_category', function ($view) {
+View::composer('frontend_backup.widget.mobile._menu_category', function ($view) {
     $data = Group::where('status', '=', 1)
     ->where('module', '=', config('module.menu-category.key'))
     ->select('id','image','title','target','url','parent_id','slug')
@@ -127,7 +127,7 @@ View::composer('frontend.widget.mobile._menu_category', function ($view) {
 
 
 // banner sales desktop
-View::composer('frontend.widget.desktop._banner_sales', function ($view) {
+View::composer('frontend_backup.widget.desktop._banner_sales', function ($view) {
     $data = Item::where('status', '=', 1)
     ->where('module', '=', config('module.advertise.key'))
     ->where('position','=','BANNER_SALES')
@@ -138,7 +138,7 @@ View::composer('frontend.widget.desktop._banner_sales', function ($view) {
     return $view->with('data', $data);
 });
 // banner sales mobile
-View::composer('frontend.widget.mobile._banner_sales', function ($view) {
+View::composer('frontend_backup.widget.mobile._banner_sales', function ($view) {
     $data = Item::where('status', '=', 1)
     ->where('module', '=', config('module.advertise.key'))
     ->where('position','=','BANNER_SALES')
@@ -151,7 +151,7 @@ View::composer('frontend.widget.mobile._banner_sales', function ($view) {
 
 
 // banner ads 1 desktop
-View::composer('frontend.widget.desktop._ads_1', function ($view) {
+View::composer('frontend_backup.widget.desktop._ads_1', function ($view) {
     $data = Item::where('status', '=', 1)
     ->where('module', '=', config('module.advertise.key'))
     ->where('position','=','BANNER_ADS_1')
@@ -163,7 +163,7 @@ View::composer('frontend.widget.desktop._ads_1', function ($view) {
     return $view->with('data', $data);
 });
 // banner ads 2 desktop
-View::composer('frontend.widget.desktop._ads_2', function ($view) {
+View::composer('frontend_backup.widget.desktop._ads_2', function ($view) {
     $data = Item::where('status', '=', 1)
     ->where('module', '=', config('module.advertise.key'))
     ->where('position','=','BANNER_ADS_2')
@@ -175,7 +175,7 @@ View::composer('frontend.widget.desktop._ads_2', function ($view) {
     return $view->with('data', $data);
 });
 // banner ads 3 desktop
-View::composer('frontend.widget.desktop._ads_3', function ($view) {
+View::composer('frontend_backup.widget.desktop._ads_3', function ($view) {
     $data = Item::where('status', '=', 1)
     ->where('module', '=', config('module.advertise.key'))
     ->where('position','=','BANNER_ADS_3')
@@ -187,7 +187,7 @@ View::composer('frontend.widget.desktop._ads_3', function ($view) {
     return $view->with('data', $data);
 });
 // banner ads 4 desktop
-View::composer('frontend.widget.desktop._ads_4', function ($view) {
+View::composer('frontend_backup.widget.desktop._ads_4', function ($view) {
     $data = Item::where('status', '=', 1)
     ->where('module', '=', config('module.advertise.key'))
     ->where('position','=','BANNER_ADS_4')
@@ -201,7 +201,7 @@ View::composer('frontend.widget.desktop._ads_4', function ($view) {
 
 // _flash_sales desktop
 
-View::composer('frontend.widget.desktop._flash_sales', function ($view) {
+View::composer('frontend_backup.widget.desktop._flash_sales', function ($view) {
     try{
         $data = null;
         $id = setting('sys_widget_flash_sale');
@@ -221,7 +221,7 @@ View::composer('frontend.widget.desktop._flash_sales', function ($view) {
 
 // _flash_sales mobile
 
-View::composer('frontend.widget.mobile._flash_sales', function ($view) {
+View::composer('frontend_backup.widget.mobile._flash_sales', function ($view) {
     try{
         $data = null;
         $id = setting('sys_widget_flash_sale');
@@ -240,7 +240,7 @@ View::composer('frontend.widget.mobile._flash_sales', function ($view) {
 });
 // section_widget_1 desktop
 
-View::composer('frontend.widget.desktop._section_widget_1', function ($view) {
+View::composer('frontend_backup.widget.desktop._section_widget_1', function ($view) {
 
     try{
         $data = null;
@@ -260,7 +260,7 @@ View::composer('frontend.widget.desktop._section_widget_1', function ($view) {
 });
 // section_widget_1 mobile
 
-View::composer('frontend.widget.mobile._section_widget_1', function ($view) {
+View::composer('frontend_backup.widget.mobile._section_widget_1', function ($view) {
 
     try{
         $data = null;
@@ -280,7 +280,7 @@ View::composer('frontend.widget.mobile._section_widget_1', function ($view) {
 });
 // section_widget_2 desktop
 
-View::composer('frontend.widget.desktop._section_widget_2', function ($view) {
+View::composer('frontend_backup.widget.desktop._section_widget_2', function ($view) {
 
     try{
         $data = null;
@@ -301,7 +301,7 @@ View::composer('frontend.widget.desktop._section_widget_2', function ($view) {
 
 // section_widget_2 mobile
 
-View::composer('frontend.widget.mobile._section_widget_2', function ($view) {
+View::composer('frontend_backup.widget.mobile._section_widget_2', function ($view) {
 
     try{
         $data = null;
@@ -322,7 +322,7 @@ View::composer('frontend.widget.mobile._section_widget_2', function ($view) {
 
 // section_widget_3 desktop
 
-View::composer('frontend.widget.desktop._section_widget_3', function ($view) {
+View::composer('frontend_backup.widget.desktop._section_widget_3', function ($view) {
 
     try{
         $data = null;
@@ -343,7 +343,7 @@ View::composer('frontend.widget.desktop._section_widget_3', function ($view) {
 
 // section_widget_3 mobile
 
-View::composer('frontend.widget.mobile._section_widget_3', function ($view) {
+View::composer('frontend_backup.widget.mobile._section_widget_3', function ($view) {
     try{
         $data = null;
         $id = setting('sys_id_widget_3');
@@ -362,7 +362,7 @@ View::composer('frontend.widget.mobile._section_widget_3', function ($view) {
 });
 
 // section_widget_category desktop
-View::composer('frontend.widget.desktop._section_widget_category', function ($view) {
+View::composer('frontend_backup.widget.desktop._section_widget_category', function ($view) {
     try{
         $data = null;
         $group_id = [];
@@ -391,7 +391,7 @@ View::composer('frontend.widget.desktop._section_widget_category', function ($vi
 });
 
 // section_widget_category mobile
-View::composer('frontend.widget.mobile._section_widget_category', function ($view) {
+View::composer('frontend_backup.widget.mobile._section_widget_category', function ($view) {
     try{
         $data = null;
         $group_id = [];
@@ -419,7 +419,7 @@ View::composer('frontend.widget.mobile._section_widget_category', function ($vie
     return $view->with('data', $data);
 });
 // _section_widget_article desktop
-View::composer('frontend.widget.desktop._section_widget_article', function ($view) {
+View::composer('frontend_backup.widget.desktop._section_widget_article', function ($view) {
     try{
         $data = null;
         $sys_id_widget_article = setting('sys_id_widget_article');
@@ -434,7 +434,7 @@ View::composer('frontend.widget.desktop._section_widget_article', function ($vie
     return $view->with('data', $data);
 });
 // _section_widget_article mobile
-View::composer('frontend.widget.blog.banner', function ($view) {
+View::composer('frontend_backup.widget.blog.banner', function ($view) {
     try{
 //        $data = Item::where('module','=','article')->where('status',1)->orderBy('id', 'DESC')->get();
 
@@ -454,7 +454,7 @@ View::composer('frontend.widget.blog.banner', function ($view) {
     }
     return $view->with('data', $data);
 });
-View::composer('frontend.widget.blog._section_widget_1', function ($view) {
+View::composer('frontend_backup.widget.blog._section_widget_1', function ($view) {
     try{
 
         $data = Item::with(array('groups' => function($query){
@@ -472,7 +472,7 @@ View::composer('frontend.widget.blog._section_widget_1', function ($view) {
     }
     return $view->with('data', $data);
 });
-View::composer('frontend.widget.blog._section_widget_2', function ($view) {
+View::composer('frontend_backup.widget.blog._section_widget_2', function ($view) {
     try{
 
         $data = Item::with(array('groups' => function($query){
@@ -496,7 +496,7 @@ View::composer('frontend.widget.blog._section_widget_2', function ($view) {
 
 
 // banner dịch vụ desktop
-View::composer('frontend.widget.desktop._section_widget_banner_nature', function ($view) {
+View::composer('frontend_backup.widget.desktop._section_widget_banner_nature', function ($view) {
     $data = Item::where('status', '=', 1)
     ->where('module', '=', config('module.advertise.key'))
     ->where('position','=','BANNER_NATURE')
@@ -509,7 +509,7 @@ View::composer('frontend.widget.desktop._section_widget_banner_nature', function
     return $view->with('data', $data);
 });
 // banner dịch vụ mobile
-View::composer('frontend.widget.mobile._section_widget_banner_nature', function ($view) {
+View::composer('frontend_backup.widget.mobile._section_widget_banner_nature', function ($view) {
     $data = Item::where('status', '=', 1)
     ->where('module', '=', config('module.advertise.key'))
     ->where('position','=','BANNER_NATURE')
@@ -522,11 +522,11 @@ View::composer('frontend.widget.mobile._section_widget_banner_nature', function 
     return $view->with('data', $data);
 });
 // địa chỉ
-View::composer('frontend.widget.desktop._system_address_provinces', function ($view) {
+View::composer('frontend_backup.widget.desktop._system_address_provinces', function ($view) {
     $data = Provinces::with('districts')->get();
     return $view->with('data', $data);
 });
-View::composer('frontend.widget.blog._menu', function ($view) {
+View::composer('frontend_backup.widget.blog._menu', function ($view) {
     $data = Group::where('status', '=', 1)
     ->where('module', '=', config('module.menublog-category.key'))
 //    ->select('id','image','title','target','url')
@@ -536,7 +536,7 @@ View::composer('frontend.widget.blog._menu', function ($view) {
     return $view->with('data', $data);
 });
 
-View::composer('frontend.widget.blog._menu_mobile', function ($view) {
+View::composer('frontend_backup.widget.blog._menu_mobile', function ($view) {
     $data = Group::where('status', '=', 1)
         ->where('module', '=', config('module.menublog-category.key'))
 //    ->select('id','image','title','target','url')

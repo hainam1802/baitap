@@ -22,7 +22,7 @@ class SiteMapController extends Controller
 
         $product = Item::where('module','product')->where('status',1)->orderBy('created_at','desc')->get();
 
-        return response()->view('frontend.pages.sitemap.index', [
+        return response()->view('frontend_backup.pages.sitemap.index', [
             'menu' => $menu,
             'article_category' => $article_category,
             'article' => $article,

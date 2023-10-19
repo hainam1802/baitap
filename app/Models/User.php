@@ -101,55 +101,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function checkBalanceValid()
-    {
-        if($this->balance<0){
-            return false;
-        }
 
-        if ($this->balance_in - $this->balance_out - $this->balance == 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    //send mail recover password
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new MailResetPasswordToken($token));
-    }
-    //hash Google2faSecret
-    public function setGoogle2faSecretAttribute($value)
-    {
-        $this->attributes['google2fa_secret'] = encrypt($value);
-    }
 
-    public function getGoogle2faSecretAttribute($value)
-    {
-        if ($value == "") {
-            return "";
-        }
-        return decrypt($value);
-    }
-    public function setCreatedAtAttribute($value)
-    {
-        if ($this->verifyDate($value, 'd/m/Y H:i:s')) {
-            $this->attributes['created_at'] = Carbon::createFromFormat('d/m/Y H:i:s', $value);;
-        } else {
-            $this->attributes['created_at'] = Carbon::now();
-        }
-    }
-    function verifyDate($value, $format)
-    {
-        return (DateTime::createFromFormat($format, $value) !== false);
-    }
-    public function txns()
-    {
-        return $this->hasMany(Txns::class);
-    }
-    public function chatrooms(){
-        return $this->belongsToMany(ChatRooms::class,'chatrooms_has_user','room_id','user_id')->withPivot('id');
-    }
     public static function boot()
     {
         parent::boot();

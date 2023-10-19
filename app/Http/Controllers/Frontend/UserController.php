@@ -31,7 +31,7 @@ class UserController extends Controller
 {
     public function getInfo()
     {
-        $user = Auth::guard('frontend')->user();
+        $user = Auth::guard('frontend_backup')->user();
 
         $user_meta =  $user->getAllMeta();
 
@@ -43,12 +43,12 @@ class UserController extends Controller
 
 
 
-        return view('frontend.pages.account.index')
+        return view('frontend_backup.pages.account.index')
             ->with('user', $user)->with('user_meta', $user_meta)->with('data', $data)->with('comment', $comment)->with('favorite',$favorite);
     }
     public function getProfile()
     {
-        $user = Auth::guard('frontend')->user();
+        $user = Auth::guard('frontend_backup')->user();
 
         $user_meta =  $user->getAllMeta();
 
@@ -58,22 +58,22 @@ class UserController extends Controller
 
 //        dd($user);
         //return $user;
-        return view('frontend.pages.account.info')
+        return view('frontend_backup.pages.account.info')
         ->with('user', $user)->with('user_meta', $user_meta)->with('dataDistrict',$dataDistrict);
     }
     public function getFavorite()
     {
-        $user = Auth::guard('frontend')->user();
+        $user = Auth::guard('frontend_backup')->user();
 
         $favorite = Favourite::with('item')->with('user')->where('user_id',$user->id)->where('status','1')->get();
 
-        return view('frontend.pages.account.wishlist')
+        return view('frontend_backup.pages.account.wishlist')
             ->with('user', $user)->with('favorite',$favorite);
     }
     public function postImage(Request $request)
     {
 
-        $user = Auth::guard('frontend')->user();
+        $user = Auth::guard('frontend_backup')->user();
         $user_meta =  $user->getAllMeta();
 
         $q = User::where('id','=',$user->id);
@@ -89,7 +89,7 @@ class UserController extends Controller
     }
     public function postProfile(Request $request)
     {
-        $user = Auth::guard('frontend')->user();
+        $user = Auth::guard('frontend_backup')->user();
 
         $validator = Validator::make($request->all(), [
             'username' => 'required',
@@ -158,33 +158,33 @@ class UserController extends Controller
     }
     public function getOrderDetail(Request $request, $id){
 //        if (isset($id)){
-            $user = Auth::guard('frontend')->user();
+            $user = Auth::guard('frontend_backup')->user();
             $data = Order::where('author_id',$user->id)->where('module','order')->where('id',$id)->where('status_confirm',1)->firstOrFail();
             $detail = OrderDetail::where('order_id',$data->id)->get();
 
             if(HelpersDevice::isMobile()) {
-                return view('frontend.pages.account.mobile.order',compact('data','detail'));
+                return view('frontend_backup.pages.account.mobile.order',compact('data','detail'));
             }
             else{
-                return view('frontend.pages.account.desktop.order',compact('data','detail'));
+                return view('frontend_backup.pages.account.desktop.order',compact('data','detail'));
             }
 
     }
     public function getOrder(){
-        $user = Auth::guard('frontend')->user();
+        $user = Auth::guard('frontend_backup')->user();
         $data = Order::where('author_id',$user->id)->where('module','order')->get();
 
 
         if(HelpersDevice::isMobile()) {
-            return view('frontend.pages.account.mobile.order',compact('data'));
+            return view('frontend_backup.pages.account.mobile.order',compact('data'));
         }
         else{
-            return view('frontend.pages.account.desktop.order',compact('data'));
+            return view('frontend_backup.pages.account.desktop.order',compact('data'));
         }
     }
 
     public function postUserFavourite(Request $request, $id){
-        $user = Auth::guard('frontend')->user();
+        $user = Auth::guard('frontend_backup')->user();
 
         $item = Item::where('status',1)->where('id',$id)->first();
         if(!$item){
