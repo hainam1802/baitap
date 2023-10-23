@@ -38,12 +38,12 @@ class Order extends BaseModel
     //one to one
     public function author()
     {
-        return $this->belongsTo(User::class,'author_id','id')->select(['id','username','fullname_display','email']);
+        return $this->belongsTo(User::class,'author_id','id')->select(['id','username','email']);
     }
 
     public function user_ref()
     {
-        return $this->belongsTo(User::class,'ref_id','id')->select(['id','username','email','fullname_display']);
+        return $this->belongsTo(User::class,'ref_id','id')->select(['id','username','email']);
     }
 
     public function item_ref()

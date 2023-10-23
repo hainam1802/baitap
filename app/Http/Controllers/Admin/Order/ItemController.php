@@ -65,23 +65,7 @@ class ItemController extends Controller
                     $q->orWhere('title', 'LIKE', '%' . $request->get('title') . '%');
                 });
             }
-            if ($request->filled('username')) {
-                $datatable->whereHas('author', function ($query) use ($request) {
-                    $query->where(function ($qChild) use ($request){
-                        $qChild->where('username', $request->get('username'));
-                    });
 
-                });
-            }
-            if ($request->filled('email')) {
-                $datatable->whereHas('author', function ($query) use ($request) {
-                    $query->where(function ($qChild) use ($request){
-                        $qChild->where('email', $request->get('username'));
-                        $qChild->orWhere('fullname_display', $request->get('email'));
-                    });
-
-                });
-            }
             if ($request->filled('status')) {
                 $datatable->where('status',$request->get('status') );
             }
