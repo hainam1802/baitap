@@ -38,6 +38,6 @@ class IndexController extends Controller
             ],
         ];
         ActivityLog::add($request, 'Truy cập dashboard index');
-        return view('admin.guest.index', compact('page_title', 'page_breadcrumbs'));
+        return view('admin.product.index', compact('page_title', 'page_breadcrumbs'));
     }
 }

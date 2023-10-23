@@ -118,7 +118,7 @@
                                     @if(auth()->guard('frontend')->check())
                                         <a href="/cart/{{$data->id}}"  class="btn btn-block btn-action btn-book">Đặt ngay</a>
                                     @else
-                                        <a href="javascript:void(0)"  class="btn btn-block btn-action btn-book" onclick="showLoginDialog()">Đặt ngay</a>
+                                        <a href="/login"  class="btn btn-block btn-action btn-book" >Đặt ngay</a>
 
 
                                     @endif

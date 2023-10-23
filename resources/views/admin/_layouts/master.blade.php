@@ -84,63 +84,16 @@
                   <span class="badge badge-danger navbar-badge">3</span>
                 </a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                  <i class="far fa-bell"></i>
-                  <span class="badge badge-warning navbar-badge">15</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                  <span class="dropdown-item dropdown-header">15 Notifications</span>
-                  <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> 4 new messages
-                    <span class="float-right text-muted text-sm">3 mins</span>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item">
-                    <i class="fas fa-users mr-2"></i> 8 friend requests
-                    <span class="float-right text-muted text-sm">12 hours</span>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item">
-                    <i class="fas fa-file mr-2"></i> 3 new reports
-                    <span class="float-right text-muted text-sm">2 days</span>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                </div>
-              </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="far fa-user"></i>
-                   <b>{{\Str::limit(Auth::user()->fullname??Auth::user()->username, 15, '...')}}</b>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <div class="dropdown-divider"></div>
-                    <a href="{{url('/admin/profile')}}" class="dropdown-item">
-                        <i class="fas fa-passport mr-2"></i> Thay đổi thông tin
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="{{url('/admin/change-password')}}" class="dropdown-item">
-                        <i class="fas fa-redo-alt mr-2"></i> Đổi mật khẩu
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="{{url('/admin/logout')}}" class="dropdown-item">
-                        <i class="fas fa-sign-out-alt mr-2"></i> Đăng xuất
-                    </a>
-                </div>
-            </li>
         </ul>
     </nav>
     <!-- /.navbar -->
     @yield('action_area')
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar sidebar-dark-primary elevation-4" style="margin: auto; ">
         <!-- Brand Logo -->
-        <a href="{{route('admin.index')}}" class="brand-link">
-            <img src="{{asset('assets/backend/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                 style="opacity: .8">
-            <span class="brand-text font-weight-light">{{config('app.name')}}</span>
+        <a href="{{route('admin.index')}}" class="brand-link" style="text-align: center">
+            <img src="https://scontent.fhan14-2.fna.fbcdn.net/v/t1.15752-9/394373204_1734964410332135_6780843514980439318_n.png?_nc_cat=106&ccb=1-7&_nc_sid=8cd0a2&_nc_ohc=TqBEYN1tu1MAX_CvALQ&_nc_ht=scontent.fhan14-2.fna&oh=03_AdTLyHROdKndoz8E_xO87jcoC-hBDlN46Odv2WPmFY29Sg&oe=655E179E" alt="AdminLTE Logo"  class=""
+                 style="opacity: .8;width: 80px">
         </a>
 
         <!-- Sidebar -->

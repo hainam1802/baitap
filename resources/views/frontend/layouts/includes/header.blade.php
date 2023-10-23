@@ -2,8 +2,8 @@
     <nav class="navbar" style="border:0px solid transparent;">
         <div class="container">
             <div class="navbar-header">
-                <a href="//www.ivivu.com" class="navbar-brand">
-                    <img src="https://res.ivivu.com/hotel/img/logo-2023n.svg" alt="ivivu">
+                <a href="/" class="navbar-brand">
+                    <img style="width: 70px" src="https://scontent.fhan14-2.fna.fbcdn.net/v/t1.15752-9/394373204_1734964410332135_6780843514980439318_n.png?_nc_cat=106&ccb=1-7&_nc_sid=8cd0a2&_nc_ohc=TqBEYN1tu1MAX_CvALQ&_nc_ht=scontent.fhan14-2.fna&oh=03_AdTLyHROdKndoz8E_xO87jcoC-hBDlN46Odv2WPmFY29Sg&oe=655E179E" alt="ivivu">
                 </a>
 
                 <button type="button" class="navbar-toggle collapsed hidden" data-toggle="collapse"
@@ -16,9 +16,9 @@
             <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/">Trang chủ</a></li>
-                    <li><a href="//www.ivivu.com/du-lich">Tours</a></li>
-                    <li><a href="//www.ivivu.com/ve-may-bay">Vé máy bay</a></li>
-                    <li><a href="//www.ivivu.com/ve-vui-choi" >Vé vui chơi</a></li>
+                    <li><a href="#">Tours</a></li>
+                    <li><a href="#">Vé máy bay</a></li>
+                    <li><a href="#" >Vé vui chơi</a></li>
 
                 </ul>
             </div>
@@ -26,12 +26,6 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
 
-                    <li data-placement="left" title="Tìm kiếm khách sạn">
-                        <a class="search-item menu-search" id="homepage-search-icon">
-
-                            <i class="fa fa-search btn-search fa fa-search btn-search menu-search "></i>
-                        </a>
-                    </li>
 
 
                     <li class="visible-xs">
@@ -88,9 +82,9 @@
                             </a>
                             <ul class="dropdown-menu member-dropdown-menu user-menu-list" role="menu">
                                 <li class="btn-login-wrap">
-                                    <btn type="button" class="btn btn-action btn-login-header" onclick="showLoginDialog()">Đăng nhập</btn>
+                                    <a type="button" class="btn btn-action btn-login-header" href="/login">Đăng nhập</a>
                                 </li>
-                                <li class="register-text">Chưa có tài khoản? <span class="register-link" onclick="showRegisterDialog()">Đăng ký</span> ngay</li>
+                                <li class="register-text">Chưa có tài khoản? <a class="register-link" href="/register">Đăng ký ngay</a> </li>
                             </ul>
                         </li>
 
@@ -121,15 +115,15 @@
                                     </div>
                                 </li>
                                 <li class="divider visible-xs" style="margin-top:0px;"></li>
-                                <li><a href="https://member.ivivu.com/dashboard/trips">Kỳ nghỉ của tôi</a></li>
-                                <li><a href="https://member.ivivu.com/dashboard/voucher">Voucher của tôi</a></li>
+                                <li><a href="#">Kỳ nghỉ của tôi</a></li>
+                                <li><a href="#">Voucher của tôi</a></li>
 
 
-                                <li><a href="https://member.ivivu.com/dashboard/profile">Hồ sơ của tôi</a></li>
-                                <li><a href="https://member.ivivu.com/dashboard/my-review">Nhận xét của tôi</a></li>
-                                <div class="col-xs-12 logout-btn-wrap">
+                                <li><a href="#">Hồ sơ của tôi</a></li>
+                                <li><a href="#">Nhận xét của tôi</a></li>
+                                <li >
                                     <a class="col-xs-12 logout-btn" href="/logout">Đăng xuất</a>
-                                </div>
+                                </li>
                             </ul>
                         </li>
                     @endif

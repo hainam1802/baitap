@@ -2,15 +2,14 @@
 <div id="LoginModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
-        <div class="close-modal-button" data-dismiss="modal">
-            <span class="icon-ic_ivivu_user_close"></span>
-        </div>
+
 
         <!-- Modal content-->
         <div class="modal-content row">
-            <form action="/login" method="POST">
+            <form action="/login" method="POST" >
                 {{ csrf_field() }}
-                <div class="col-xs-12 no-padding login-form">
+
+                <div class="col-xs-12 no-padding login-form" >
                     <div class="col-xs-12">
                         <div class="form-group v-margin-bottom-20">
                             <label class="control-label hidden-xs">Tên tài khoản</label>

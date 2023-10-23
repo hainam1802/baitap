@@ -135,7 +135,7 @@
                                     </div>
 
                                     <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 fullscreen-mb" id="bookerInfo">
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 vremoveSpacing">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 vremoveSpacing paymentPanel">
                                             <form action="/post-order" method="post">
                                                 {{ csrf_field() }}
 

@@ -29,58 +29,29 @@ class User extends Authenticatable
         'username',
         'account_type',
         'email',
-        'email_verified_at',
+
         'password',
         'password2',
-        'is_change_password2',
-        'google2fa_secret',
-        'google2fa_enable',
-        'balance',
-        'balance_in',
-        'balance_out',
+
         'image',
         'cover',
         'firstname',
         'lastname',
         'fullname',
-        'url_display',
+
         'phone',
         'birtday',
         'gender',
         'address',
         'status',
-        'verify_code',
-        'verify_code_expired_at',
-        'is_verify',
-        'odp_code',
-        'odp_expired_at',
-        'odp_active',
-        'odp_fail',
-        'last_add_balance',
-        'last_minus_balance',
-        'lastlogin_at',
-        'lastlogout_at',
+
         'created_by',
         'created_at',
 
     ];
 
 
-    protected $meta_field = [
-        'avatar',
-        'cover',
-        'follower',
-        'booking_quantity',
-        'booking_complete_rate',
-        'camera',
-        'voice',
-        'mic',
-        'game_play',
-        'album_image',
-        'album_video',
-        'album_timeline',
-        'is_online',
-    ];
+
 
 
     /**
@@ -98,17 +69,14 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
 
 
     public static function boot()
     {
         parent::boot();
-        static::creating(function ($model) {
-            $model->url_display =  md5("P@ZZ".$model->email);
-        });
+//        static::creating(function ($model) {
+//            $model->url_display =  md5("P@ZZ".$model->email);
+//        });
 
     }
 

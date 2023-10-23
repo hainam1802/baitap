@@ -45,7 +45,7 @@ class RegisterController extends Controller
     }
     public function showRegistrationForm()
     {
-        return view('frontend.auth.register');
+        return view('frontend.pages.auth.register');
     }
     /**
      * Get a validator for an incoming registration request.
